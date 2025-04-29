@@ -1,0 +1,40 @@
+@import "./variable";
+
+.swiper {
+  padding-top: 100px !important;
+  margin-bottom: 80px;
+
+  .swiper-wrapper {
+    height: 500px;
+
+    .swiper-slide {
+      background-color: $white-gray;
+    }
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 60px;
+    height: 124px;
+    &::after {
+      content: "";
+    }
+  }
+  .swiper-button-prev {
+    background: url(../assets/img/icon-swiper-1.svg) no-repeat center/ 100% 100%;
+    left: 30px;
+  }
+  .swiper-button-next {
+    background: url(../assets/img/icon-swiper-2.svg) no-repeat center/ 100% 100%;
+    right: 30px;
+  }
+  .swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+    margin: 0 3px !important;
+    background: #ffffff;
+    opacity: 1;
+  }
+  .swiper-pagination-bullet-active {
+    background: #000000;
+  }
+}
