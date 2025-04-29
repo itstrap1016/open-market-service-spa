@@ -30,9 +30,6 @@ const Header = () => {
     </header>`;
 };
 
-export const setHeaderEvent = () => {
-  const $loginBtn = document.querySelector(".login-btn");
-  console.log($loginBtn);
-};
+export const setHeaderEvent = () => {};
 
 export default Header;

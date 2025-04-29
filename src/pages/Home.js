@@ -1,6 +1,7 @@
 import Header, { setHeaderEvent } from "../components/Header.js";
 import SwiperComponent, { setSwiper } from "../components/SwiperComponent.js";
 import createProducts from "../components/Products.js";
+import Footer from "../components/Footer.js";
 
 const Home = async () => {
   const Products = await createProducts();
@@ -8,6 +9,7 @@ const Home = async () => {
   ${Header()}
   ${SwiperComponent()}
   ${Products}
+  ${Footer()}
   `;
   const observer = new MutationObserver(() => {
     setHeaderEvent();
