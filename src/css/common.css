@@ -1,0 +1,93 @@
+.primary-btn {
+  background-color: #21bf48;
+  color: white;
+  border-radius: 5px;
+}
+
+.form-logo {
+  width: 238px;
+  height: 74px;
+  margin-bottom: 70px;
+}
+.form-logo a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.form-logo a img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.common-form-wrap {
+  position: relative;
+}
+.common-form-wrap .common-form {
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  width: 550px;
+  padding: 34px 35px 36px;
+  left: 0;
+  background-color: white;
+  transform: translateY(-18px);
+}
+.common-form-wrap .common-form .login-form {
+  display: flex;
+  flex-direction: column;
+}
+.common-form-wrap .common-form .login-form input {
+  height: 60px;
+  border: none;
+  border-bottom: 1px solid #c4c4c4;
+}
+.common-form-wrap .common-form .login-form input:first-child {
+  margin-bottom: 6px;
+}
+.common-form-wrap .common-form .login-form input::-moz-placeholder {
+  color: #767676;
+}
+.common-form-wrap .common-form .login-form input::placeholder {
+  color: #767676;
+}
+.common-form-wrap .common-form .login-form .primary-btn {
+  height: 60px;
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-top: 55px;
+}
+.common-form-wrap .common-btns-list {
+  display: flex;
+  width: 550px;
+  position: relative;
+}
+.common-form-wrap .common-btns-list li {
+  width: 50%;
+}
+.common-form-wrap .common-btns-list li button {
+  width: 100%;
+  height: 80px;
+  padding: 20px 0 38px;
+  font-size: 1.125rem;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+}
+.common-form-wrap .common-btns-list li button.active {
+  position: relative;
+  background-color: white;
+  z-index: 50;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+}
+.common-form-wrap .common-btns-list li:first-child button.active {
+  border-right: none;
+}
+.common-form-wrap .common-btns-list li:nth-child(2) button.active {
+  border-left: none;
+}
+
+.error-message {
+  color: #eb5757;
+  font-weight: 500;
+}

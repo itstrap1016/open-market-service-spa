@@ -1,0 +1,111 @@
+@import "./variable";
+
+.primary-btn {
+  background-color: $main-color;
+  color: white;
+  border-radius: 5px;
+}
+
+.form-logo {
+  width: 238px;
+  height: 74px;
+  margin-bottom: 70px;
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.common-form-wrap {
+  position: relative;
+  .common-form {
+    border: 1px solid $white-gray-02;
+    border-radius: 10px;
+    width: 550px;
+    padding: 34px 35px 36px;
+    left: 0;
+    background-color: white;
+    transform: translateY(-18px);
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        height: 60px;
+        border: none;
+        border-bottom: 1px solid $white-gray-02;
+
+        &:first-child {
+          margin-bottom: 6px;
+        }
+
+        &::placeholder {
+          color: $gray;
+        }
+      }
+      .primary-btn {
+        height: 60px;
+        font-weight: 700;
+        font-size: 1.125rem;
+        margin-top: 55px;
+      }
+    }
+  }
+
+  .common-btns-list {
+    display: flex;
+    width: 550px;
+    position: relative;
+
+    li {
+      width: 50%;
+
+      button {
+        width: 100%;
+        height: 80px;
+        padding: 20px 0 38px;
+        font-size: 1.125rem;
+        border: 1px solid $white-gray-02;
+        border-radius: 10px;
+        background-color: $white-gray;
+
+        &.active {
+          position: relative;
+          background-color: white;
+          z-index: 50;
+          border-bottom: none;
+          border-radius: 10px 10px 0 0;
+        }
+      }
+
+      &:first-child {
+        button {
+          &.active {
+            border-right: none;
+          }
+        }
+      }
+      &:nth-child(2) {
+        button {
+          &.active {
+            border-left: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.error-message {
+  color: $red;
+  font-weight: 500;
+}

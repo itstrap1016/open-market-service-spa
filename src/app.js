@@ -1,6 +1,6 @@
 import routes from "./routes.js";
 
-const router = async () => {
+export const router = async () => {
   const path = window.location.pathname;
   const render = routes[path];
   const html = await render();
@@ -37,5 +37,6 @@ window.addEventListener("DOMContentLoaded", () => {
     console.log("Form submission prevented.");
   });
 });
+
 // 브라우저 앞으로/뒤로가기 했을 때
 window.addEventListener("popstate", router);
