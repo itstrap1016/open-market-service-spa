@@ -19,6 +19,8 @@ const loginProcess = async () => {
   const $idInput = document.querySelector(".login-form .id-input");
   const $passwordInput = document.querySelector(".login-form .password-input");
   let $loginBtn;
+  let idError = false;
+  let passwordError = false;
 
   const idValue = $idInput.value.trim();
   const passwordValue = $passwordInput.value.trim();
@@ -27,22 +29,49 @@ const loginProcess = async () => {
   if (!idValue && !passwordValue) {
     error = true;
     errorMessage = "아이디를 입력해 주세요.";
+    idError = true;
+    passwordError = true;
   } else if (!idValue) {
     error = true;
     errorMessage = "아이디를 입력해 주세요.";
+    idError = true;
+    passwordError = false;
   } else if (!passwordValue) {
     error = true;
     errorMessage = "비밀번호를 입력해 주세요.";
+    idError = false;
+    passwordError = true;
   } else {
     error = false;
     errorMessage = "";
+    idError = false;
+    passwordError = false;
   }
 
   if (error === true) {
+    const prevIdValue = idValue;
+    const prevPasswordValue = passwordValue;
     await router();
     $loginBtn = document.querySelector(".login-form .login-btn");
     $loginBtn.classList.add("error");
-    return;
+    const $newIdInput = document.querySelector(".login-form .id-input");
+    const $newPasswordInput = document.querySelector(
+      ".login-form .password-input"
+    );
+    if (idError === true && passwordError === true) {
+      $newIdInput.focus();
+      return;
+    }
+    if (idError === true && passwordError === false) {
+      $newIdInput.focus();
+      $newPasswordInput.value = prevPasswordValue;
+      return;
+    }
+    if (idError === false && passwordError === true) {
+      $newPasswordInput.focus();
+      $newIdInput.value = prevIdValue;
+      return;
+    }
   } else {
   }
   console.log(error, errorMessage);
