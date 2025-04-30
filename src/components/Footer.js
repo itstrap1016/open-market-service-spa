@@ -35,7 +35,7 @@ const Footer = () => {
                     </a>
                 </li>
             </ul>
-            <ul>
+            <ul class="sns-list">
                 <li class="instagram-link">
                     <a href="#" aria-label="인스타그램 페이지로 이동">
                     </a>

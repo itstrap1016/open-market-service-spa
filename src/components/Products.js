@@ -27,7 +27,7 @@ const createProducts = async () => {
   $section.append($ul);
   $ul.classList.add("products-list");
   for (let i = 0; i < products.length; i++) {
-    $ul.innerHTML += createProduct(products[i]);
+    $ul.insertAdjacentHTML("afterbegin", createProduct(products[i]));
   }
   return $section.outerHTML;
 };
