@@ -1,5 +1,6 @@
 import ErrorMessage from "./ErrorMessage";
 import { router } from "../app";
+import { loginFetch } from "../api/loginAPi";
 
 let error = false;
 let errorMessage = "";
@@ -21,9 +22,11 @@ const loginProcess = async () => {
   let $loginBtn;
   let idError = false;
   let passwordError = false;
+  let loginError = false;
 
   const idValue = $idInput.value.trim();
   const passwordValue = $passwordInput.value.trim();
+  const response = await loginFetch(idValue, passwordValue);
 
   // 입력값 검증
   if (!idValue && !passwordValue) {
@@ -41,11 +44,21 @@ const loginProcess = async () => {
     errorMessage = "비밀번호를 입력해 주세요.";
     idError = false;
     passwordError = true;
+  } else if (!response) {
+    error = true;
+    errorMessage = "아이디 또는 비밀번호가 올바르지 않습니다.";
+    loginError = true;
   } else {
+    console.log("로그인 성공");
     error = false;
     errorMessage = "";
     idError = false;
     passwordError = false;
+    loginError = false;
+
+    // / 페이지로 이동
+    window.location.href = "/";
+    return; // 성공 시 함수 종료
   }
 
   if (error === true) {
@@ -72,9 +85,12 @@ const loginProcess = async () => {
       $newIdInput.value = prevIdValue;
       return;
     }
-  } else {
+    if (loginError === true) {
+      $newPasswordInput.focus();
+      $newIdInput.value = prevIdValue;
+      return;
+    }
   }
-  console.log(error, errorMessage);
 };
 
 export const loginSubmit = () => {
