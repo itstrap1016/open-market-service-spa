@@ -15,7 +15,7 @@ const LoginForm = () => {
 export const loginSubmit = () => {
   const $form = document.querySelector(".login-form");
   const $button = document.querySelector(".login-form .login-btn");
-  $form.addEventListener("submit", (e) => {
+  $form.addEventListener("submit", () => {
     loginProcess();
   });
   $button.addEventListener("click", () => {

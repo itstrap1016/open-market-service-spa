@@ -2,7 +2,7 @@ import routes from "./routes.js";
 
 export const router = async () => {
   const path = window.location.pathname;
-  const render = routes[path];
+  const render = routes[path] || routes["404"];
   const html = await render();
   const app = document.getElementById("app");
   app.innerHTML = "";

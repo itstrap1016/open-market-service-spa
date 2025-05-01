@@ -6,4 +6,6 @@ const routes = {
   "/login": Login,
 };
 
+routes["404"] = NotFound;
+
 export default routes;
