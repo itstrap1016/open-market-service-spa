@@ -22,5 +22,8 @@
   "homepage": "https://github.com/itstrap1016/open-market-service-spa#readme",
   "devDependencies": {
     "vite": "^6.3.3"
+  },
+  "dependencies": {
+    "swiper": "^11.2.6"
   }
 }
