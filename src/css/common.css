@@ -1,7 +1,27 @@
+a {
+  cursor: pointer;
+}
+
+a.primary-btn {
+  background-color: #21bf48;
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .primary-btn {
   background-color: #21bf48;
   color: white;
   border-radius: 5px;
+}
+
+.secondary-btn {
+  background-color: white;
+  border-radius: 5px;
+  color: #767676;
+  border: 1px solid #c4c4c4;
 }
 
 .form-logo {

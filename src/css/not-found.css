@@ -1,0 +1,40 @@
+.not-found-page {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+.not-found-page .img-section {
+  width: 276px;
+  height: 236px;
+  background: url(../assets/img/icon-404.png) no-repeat center/100% 100%;
+}
+.not-found-page .txt {
+  width: 414px;
+  height: 236px;
+  padding-top: 16px;
+}
+.not-found-page .txt h3 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.not-found-page .txt p {
+  color: #767676;
+  margin-bottom: 40px;
+}
+.not-found-page .txt .btns-list {
+  display: flex;
+  gap: 14px;
+}
+.not-found-page .txt .btns-list a {
+  width: 200px;
+  height: 60px;
+  font-weight: 700;
+}
+.not-found-page .txt .btns-list button {
+  width: 200px;
+  height: 60px;
+  font-weight: 700;
+}

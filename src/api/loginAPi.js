@@ -18,6 +18,7 @@ export const loginFetch = async (username, password) => {
     console.log(data);
     return data; // 변환된 데이터를 반환
   } catch (error) {
+    console.log(error);
     return false; // 에러를 호출한 곳으로 전달
   }
 };

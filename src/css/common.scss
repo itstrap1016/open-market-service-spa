@@ -1,9 +1,29 @@
 @import "./variable";
 
+a {
+  cursor: pointer;
+}
+
+a.primary-btn {
+  background-color: $main-color;
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .primary-btn {
   background-color: $main-color;
   color: white;
   border-radius: 5px;
+}
+
+.secondary-btn {
+  background-color: white;
+  border-radius: 5px;
+  color: $gray;
+  border: 1px solid $white-gray-02;
 }
 
 .form-logo {
