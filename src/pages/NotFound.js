@@ -1,4 +1,4 @@
-export const NotFound = () => {
+const NotFound = () => {
   return `
     <section class="not-found-page">
       <h2 class="sr-only">404 페이지</h2>
@@ -16,3 +16,5 @@ export const NotFound = () => {
     </section>
   `;
 };
+
+export default NotFound;
