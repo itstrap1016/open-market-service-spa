@@ -15,7 +15,6 @@ export const loginFetch = async (username, password) => {
     }
 
     const data = await response.json(); // JSON 데이터를 JavaScript 객체로 변환
-    console.log(data);
     return data; // 변환된 데이터를 반환
   } catch (error) {
     console.log(error);
