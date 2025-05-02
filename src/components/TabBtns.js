@@ -1,5 +1,3 @@
-export let loginType = localStorage.getItem("loginType") || "BUYER";
-
 const TabBtns = (name1 = "버튼", name2 = "버튼", type = "") => {
   let typeName1;
   let typeName2;
@@ -35,10 +33,6 @@ export const tabBtnsEvent = () => {
 
       // 클릭된 버튼에 active 클래스 추가
       button.classList.add("active");
-
-      // 버튼 텍스트로 로그인 상태 결정
-      loginType = button.dataset.loginType;
-      localStorage.setItem("loginType", loginType);
     });
   });
 };

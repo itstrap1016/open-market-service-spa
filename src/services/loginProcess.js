@@ -7,12 +7,11 @@ export let errorMessage = "";
 export const loginProcess = async () => {
   const $idInput = document.querySelector(".login-form .id-input");
   const $passwordInput = document.querySelector(".login-form .password-input");
-  let $loginBtn;
   let idError = false;
   let passwordError = false;
   let loginError = false;
 
-  const loginType = localStorage.getItem("loginType") || "구매회원 로그인";
+  const loginType = document.querySelector(".tab-btn.active").dataset.loginType;
 
   const idValue = $idInput.value.trim();
   const passwordValue = $passwordInput.value.trim();
@@ -28,11 +27,9 @@ export const loginProcess = async () => {
     error = true;
     errorMessage = "아이디를 입력해 주세요.";
     idError = true;
-    passwordError = false;
   } else if (!passwordValue) {
     error = true;
     errorMessage = "비밀번호를 입력해 주세요.";
-    idError = false;
     passwordError = true;
   } else if (!data) {
     error = true;
@@ -46,8 +43,6 @@ export const loginProcess = async () => {
 
   // 에러 처리
   if (error === true) {
-    const prevIdValue = idValue;
-    const prevPasswordValue = passwordValue;
     await router();
     const buttons = document.querySelectorAll(".tab-btn");
 
@@ -60,7 +55,7 @@ export const loginProcess = async () => {
       }
     });
 
-    $loginBtn = document.querySelector(".login-form .login-btn");
+    const $loginBtn = document.querySelector(".login-form .login-btn");
     $loginBtn.classList.add("error");
 
     const $newIdInput = document.querySelector(".login-form .id-input");
@@ -73,19 +68,19 @@ export const loginProcess = async () => {
     }
     if (idError === true && passwordError === false) {
       $newIdInput.focus();
-      $newPasswordInput.value = prevPasswordValue;
+      $newPasswordInput.value = passwordValue;
       return;
     }
-    if (idError === false && passwordError === true) {
+    if ((idError === false && passwordError === true) || loginError === true) {
       $newPasswordInput.focus();
-      $newIdInput.value = prevIdValue;
+      $newIdInput.value = idValue;
       return;
     }
-    if (loginError === true) {
-      $newPasswordInput.focus();
-      $newIdInput.value = prevIdValue;
-      return;
-    }
+    // if (loginError === true) {
+    //   $newPasswordInput.focus();
+    //   $newIdInput.value = idValue;
+    //   return;
+    // }
   }
 
   if (data && data.access && data.refresh) {
