@@ -92,12 +92,17 @@ export const loginProcess = async () => {
     // Access Token 저장 (5분 유효)
     document.cookie = `access=${data.access}; path=/; max-age=300; ${
       isProduction ? "Secure;" : ""
-    } HttpOnly; SameSite=Strict`;
+    } SameSite=Strict`;
 
     // Refresh Token 저장 (1일 유효)
     document.cookie = `refresh=${data.refresh}; path=/; max-age=86400; ${
       isProduction ? "Secure;" : ""
-    } HttpOnly; SameSite=Strict`;
+    } SameSite=Strict`;
+
+    // loginType 저장 (1일 유효)
+    document.cookie = `loginType=${loginType}; path=/; max-age=86400; ${
+      isProduction ? "Secure;" : ""
+    } SameSite=Strict`;
 
     // 페이지로 이동
     window.location.href = "/";

@@ -67,19 +67,22 @@
   gap: 26px;
 }
 #top-header nav .user-btns .shopping-cart-btn,
-#top-header nav .user-btns .login-btn {
+#top-header nav .user-btns .login-btn,
+#top-header nav .user-btns .my-page-btn-wrapper .my-page-btn {
   display: flex;
   flex-direction: column;
   gap: 4px;
   align-items: center;
 }
 #top-header nav .user-btns .shopping-cart-btn .img,
-#top-header nav .user-btns .login-btn .img {
+#top-header nav .user-btns .login-btn .img,
+#top-header nav .user-btns .my-page-btn-wrapper .my-page-btn .img {
   width: 32px;
   height: 32px;
 }
 #top-header nav .user-btns .shopping-cart-btn .txt,
-#top-header nav .user-btns .login-btn .txt {
+#top-header nav .user-btns .login-btn .txt,
+#top-header nav .user-btns .my-page-btn-wrapper .my-page-btn .txt {
   font-size: 0.75rem;
 }
 #top-header nav .user-btns .shopping-cart-btn .img {
@@ -99,4 +102,68 @@
 }
 #top-header nav .user-btns .login-btn:hover .txt {
   color: #21bf48;
+}
+#top-header nav .user-btns .my-page-btn-wrapper {
+  position: relative;
+}
+#top-header nav .user-btns .my-page-btn-wrapper .my-page-btn .img {
+  background: url(../assets/img/icon-user.svg) no-repeat center/100% 100%;
+}
+#top-header nav .user-btns .my-page-btn-wrapper .my-page-btn:hover .img {
+  background: url(../assets/img/icon-user-2.svg) no-repeat center/100% 100%;
+}
+#top-header nav .user-btns .my-page-btn-wrapper .my-page-btn:hover .txt {
+  color: #21bf48;
+}
+#top-header nav .user-btns .my-page-btn-wrapper .my-page-btn.on .img {
+  background: url(../assets/img/icon-user-2.svg) no-repeat center/100% 100%;
+}
+#top-header nav .user-btns .my-page-btn-wrapper .my-page-btn.on .txt {
+  color: #21bf48;
+}
+#top-header nav .user-btns .my-page-btn-wrapper .list-wrapper {
+  position: absolute;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  width: 130px;
+  height: 108px;
+  border-radius: 10px;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.25);
+  display: none;
+}
+#top-header nav .user-btns .my-page-btn-wrapper .list-wrapper.on {
+  display: block;
+}
+#top-header nav .user-btns .my-page-btn-wrapper .list-wrapper .triangle {
+  width: 30px;
+  height: 30px;
+  background: url(../assets/img/polygon.png) no-repeat center/100% 100%;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#top-header nav .user-btns .my-page-btn-wrapper .list-wrapper > ul {
+  padding: 10px;
+}
+#top-header nav .user-btns .my-page-btn-wrapper .list-wrapper > ul > li:first-child {
+  margin-bottom: 8px;
+}
+#top-header nav .user-btns .my-page-btn-wrapper .list-wrapper > ul > li button,
+#top-header nav .user-btns .my-page-btn-wrapper .list-wrapper > ul > li a {
+  font-weight: 500;
+  color: #767676;
+  width: 110px;
+  height: 40px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#top-header nav .user-btns .my-page-btn-wrapper .list-wrapper > ul > li button:hover,
+#top-header nav .user-btns .my-page-btn-wrapper .list-wrapper > ul > li a:hover {
+  border: 1px solid #767676;
+  color: black;
 }

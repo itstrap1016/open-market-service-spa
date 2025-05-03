@@ -68,7 +68,8 @@
       gap: 26px;
 
       .shopping-cart-btn,
-      .login-btn {
+      .login-btn,
+      .my-page-btn-wrapper .my-page-btn {
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -111,6 +112,89 @@
           }
           .txt {
             color: $main-color;
+          }
+        }
+      }
+      .my-page-btn-wrapper {
+        position: relative;
+        .my-page-btn {
+          .img {
+            background: url(../assets/img/icon-user.svg) no-repeat center/ 100%
+              100%;
+          }
+
+          &:hover {
+            .img {
+              background: url(../assets/img/icon-user-2.svg) no-repeat center/
+                100% 100%;
+            }
+            .txt {
+              color: $main-color;
+            }
+          }
+
+          &.on {
+            .img {
+              background: url(../assets/img/icon-user-2.svg) no-repeat center/
+                100% 100%;
+            }
+            .txt {
+              color: $main-color;
+            }
+          }
+        }
+        .list-wrapper {
+          position: absolute;
+          top: 64px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: white;
+          width: 130px;
+          height: 108px;
+          border-radius: 10px;
+          box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.25);
+          display: none;
+
+          &.on {
+            display: block;
+          }
+
+          .triangle {
+            width: 30px;
+            height: 30px;
+            background: url(../assets/img/polygon.png) no-repeat center / 100%
+              100%;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+
+          > ul {
+            padding: 10px;
+
+            > li {
+              &:first-child {
+                margin-bottom: 8px;
+              }
+
+              button,
+              a {
+                font-weight: 500;
+                color: $gray;
+                width: 110px;
+                height: 40px;
+                border-radius: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &:hover {
+                  border: 1px solid $gray;
+                  color: black;
+                }
+              }
+            }
           }
         }
       }
