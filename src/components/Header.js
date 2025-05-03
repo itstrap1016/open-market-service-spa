@@ -50,7 +50,7 @@ const Header = () => {
             </ul>
           </div>
         </div>
-        <a href="#" class="seller-center-btn">
+        <a href="#" class="primary-btn seller-center-btn">
           <span class="img"></span>
           <span class="txt">판매자 센터</span>
         </a>
@@ -107,6 +107,17 @@ export const setHeaderEvent = () => {
     $logoutBtn.addEventListener("click", () => {
       logout();
       window.location.href = "/";
+    });
+    // 드롭다운 외부 클릭 감지 이벤트
+    document.addEventListener("click", (event) => {
+      if (
+        !$dropdown.contains(event.target) &&
+        !$myPageBtn.contains(event.target)
+      ) {
+        // 드롭다운 외부를 클릭한 경우 드롭다운 닫기
+        $myPageBtn.classList.remove("on");
+        $dropdown.classList.remove("on");
+      }
     });
   }
 };

@@ -198,6 +198,24 @@
           }
         }
       }
+      .seller-center-btn {
+        width: 168px;
+        height: 54px;
+        gap: 8px;
+        margin-left: 4px;
+
+        .img {
+          width: 32px;
+          height: 32px;
+          background: url(../assets/img/icon-shopping-bag.svg) no-repeat center /
+            100% 100%;
+        }
+
+        .txt {
+          font-size: 18px;
+          font-weight: 500;
+        }
+      }
     }
   }
 }
