@@ -17,7 +17,7 @@ const SignUpForm = () => {
             <label for="user-id">아이디</label>
             <div class="input-button">
                 <input id="user-id" class="signup-input" type="text"/>
-                <button class="primary-btn">
+                <button class="primary-btn" type="button">
                 중복확인
                 </button>
             </div>
@@ -64,6 +64,11 @@ const SignUpForm = () => {
             ${personalInfoError ? ErrorMessage(personalInfoErrorMessage) : ""}
             </fieldset>
         </div>
+        <div class="terms-agreement">
+          <input type="checkbox" />
+          <p>호두샵의 <span>이용약관</span> 및 <span>개인정보처리방침</span>에 대한 내용을 확인하였고 동의합니다.</p>
+        </div>
+        <button type="submit" disabled>가입하기</button>
       </form>
     `;
 };
