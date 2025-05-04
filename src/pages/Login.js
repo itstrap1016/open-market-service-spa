@@ -14,7 +14,7 @@ const Login = () => {
       </div>
       <ul class="links-list">
         <li>
-          <a href="#">회원가입</a>
+          <a href="/signup">회원가입</a>
         </li>
         <li>
           <a href="#">비밀번호 찾기</a>
