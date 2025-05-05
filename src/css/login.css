@@ -26,7 +26,7 @@
   background-color: #333333;
   margin: 0 14px;
 }
-.login-section .login-form .error-message {
+.login-section .login-form .error-message.on {
   margin-top: 26px;
 }
 .login-section .login-btn.error {

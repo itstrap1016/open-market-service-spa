@@ -1,6 +1,7 @@
 import FormLogo from "../components/FormLogo";
 import TabBtns from "../components/TabBtns";
 import SignUpForm from "../components/SignUpForm";
+import { validateSignup } from "../services/signupProcess";
 
 const SignUp = () => {
   const signUpHtml = `
@@ -14,6 +15,12 @@ const SignUp = () => {
         </div>
       </section>
     `;
+
+  const observer = new MutationObserver(() => {
+    validateSignup();
+    observer.disconnect(); // 초기화 후 관찰 중지
+  });
+  observer.observe(document.getElementById("app"), { childList: true });
 
   return signUpHtml;
 };

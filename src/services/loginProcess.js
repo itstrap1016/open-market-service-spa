@@ -1,16 +1,45 @@
-import { router } from "../app";
 import { loginFetch } from "../api/loginAPi";
 
-export let error = false;
-export let errorMessage = "";
+const errorMessage = {
+  idRequired: "아이디를 입력해 주세요.",
+  passwordRequired: "비밀번호를 입력해 주세요.",
+  loginError: "아이디 또는 비밀번호 올바르지 않습니다.",
+};
+
+// 에러 메시지 처리 함수
+const showError = (
+  $errorElement,
+  message,
+  $focusElement,
+  $buttonElement = null
+) => {
+  $errorElement.textContent = message;
+  $errorElement.classList.add("on");
+
+  if ($buttonElement) {
+    $buttonElement.classList.add("error");
+  }
+
+  if ($focusElement) {
+    $focusElement.focus();
+  }
+};
+
+// 에러 메시지 숨김 함수
+const hideError = ($errorElement, $buttonElement = null) => {
+  $errorElement.textContent = "";
+  $errorElement.classList.remove("on");
+
+  if ($buttonElement) {
+    $buttonElement.classList.remove("error");
+  }
+};
 
 export const loginProcess = async () => {
   const $idInput = document.querySelector(".login-form .id-input");
   const $passwordInput = document.querySelector(".login-form .password-input");
-  let idError = false;
-  let passwordError = false;
-  let loginError = false;
-
+  const $errorMessage = document.querySelector(".login-form .error-message");
+  const $loginBtn = document.querySelector(".login-form .login-btn");
   const loginType = document.querySelector(".tab-btn.active").dataset.loginType;
 
   const idValue = $idInput.value.trim();
@@ -19,72 +48,40 @@ export const loginProcess = async () => {
 
   // 입력값 검증
   if (!idValue && !passwordValue) {
-    error = true;
-    errorMessage = "아이디를 입력해 주세요.";
-    idError = true;
-    passwordError = true;
+    showError($errorMessage, errorMessage.idRequired, $idInput, $loginBtn);
+    return;
   } else if (!idValue) {
-    error = true;
-    errorMessage = "아이디를 입력해 주세요.";
-    idError = true;
+    showError($errorMessage, errorMessage.idRequired, $idInput, $loginBtn);
+    return;
   } else if (!passwordValue) {
-    error = true;
-    errorMessage = "비밀번호를 입력해 주세요.";
-    passwordError = true;
-  } else if (!data) {
-    error = true;
-    errorMessage = "아이디 또는 비밀번호가 올바르지 않습니다.";
-    loginError = true;
-  } else if (data && data.user["user_type"] !== loginType) {
-    error = true;
-    errorMessage = "아이디 또는 비밀번호가 올바르지 않습니다.";
-    loginError = true;
-  }
-
-  // 에러 처리
-  if (error === true) {
-    await router();
-    const buttons = document.querySelectorAll(".tab-btn");
-
-    // 렌더링 후 loginType에 따라 active 상태 복원
-    buttons.forEach((button) => {
-      if (button.dataset.loginType === loginType) {
-        button.classList.add("active");
-      } else {
-        button.classList.remove("active");
-      }
-    });
-
-    const $loginBtn = document.querySelector(".login-form .login-btn");
-    $loginBtn.classList.add("error");
-
-    const $newIdInput = document.querySelector(".login-form .id-input");
-    const $newPasswordInput = document.querySelector(
-      ".login-form .password-input"
+    showError(
+      $errorMessage,
+      errorMessage.passwordRequired,
+      $passwordInput,
+      $loginBtn
     );
-    if (idError === true && passwordError === true) {
-      $newIdInput.focus();
-      return;
-    }
-    if (idError === true && passwordError === false) {
-      $newIdInput.focus();
-      $newPasswordInput.value = passwordValue;
-      return;
-    }
-    if ((idError === false && passwordError === true) || loginError === true) {
-      $newPasswordInput.focus();
-      $newIdInput.value = idValue;
-      return;
-    }
-    // if (loginError === true) {
-    //   $newPasswordInput.focus();
-    //   $newIdInput.value = idValue;
-    //   return;
-    // }
+    return;
+  } else if (!data) {
+    showError(
+      $errorMessage,
+      errorMessage.loginError,
+      $passwordInput,
+      $loginBtn
+    );
+    return;
+  } else if (data && data.user["user_type"] !== loginType) {
+    showError(
+      $errorMessage,
+      errorMessage.loginError,
+      $passwordInput,
+      $loginBtn
+    );
+    return;
   }
 
   if (data && data.access && data.refresh) {
     console.log("로그인 성공");
+    hideError($errorMessage, $loginBtn);
 
     // 환경에 따라 Secure 옵션 설정
     const isProduction = window.location.hostname !== "localhost";

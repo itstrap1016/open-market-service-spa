@@ -14,6 +14,7 @@ a.primary-btn {
 
   &:disabled {
     background-color: $white-gray-02;
+    cursor: default;
   }
 }
 
@@ -21,6 +22,11 @@ a.primary-btn {
   background-color: $main-color;
   color: white;
   border-radius: 5px;
+
+  &:disabled {
+    background-color: $white-gray-02;
+    cursor: default;
+  }
 }
 
 .secondary-btn {
@@ -132,4 +138,26 @@ a.primary-btn {
 .error-message {
   color: $red;
   font-weight: 500;
+
+  &.off {
+    display: none;
+  }
+
+  &.on {
+    display: block;
+  }
+
+  &.on.signup {
+    margin-top: 10px;
+  }
+}
+
+.success-message {
+  color: $main-color;
+  margin-top: 10px;
+  display: none;
+
+  &.on {
+    display: block;
+  }
 }

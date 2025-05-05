@@ -21,12 +21,20 @@
 .signup-section .signup-form .fieldset-wrapper fieldset {
   margin-bottom: 12px;
 }
+.signup-section .signup-form .fieldset-wrapper fieldset .error-message.on {
+  margin-top: 10px;
+}
 .signup-section .signup-form .fieldset-wrapper fieldset .signup-input,
 .signup-section .signup-form .fieldset-wrapper fieldset select {
   height: 54px;
   border: 1px solid #c4c4c4;
   border-radius: 5px;
   padding: 0 16px;
+}
+.signup-section .signup-form .fieldset-wrapper fieldset .signup-input:focus,
+.signup-section .signup-form .fieldset-wrapper fieldset select:focus {
+  border: 1px solid #21bf48;
+  outline: none;
 }
 .signup-section .signup-form .fieldset-wrapper fieldset label {
   color: #767676;
@@ -43,28 +51,11 @@
 .signup-section .signup-form .fieldset-wrapper fieldset.id-input-set .input-button button {
   flex-grow: 1;
 }
-.signup-section .signup-form .fieldset-wrapper fieldset.password-input-set, .signup-section .signup-form .fieldset-wrapper fieldset.password-check-input-set {
-  margin-bottom: 20px;
-}
 .signup-section .signup-form .fieldset-wrapper fieldset.password-input-set .input-check, .signup-section .signup-form .fieldset-wrapper fieldset.password-check-input-set .input-check {
   position: relative;
 }
 .signup-section .signup-form .fieldset-wrapper fieldset.password-input-set .input-check .signup-input, .signup-section .signup-form .fieldset-wrapper fieldset.password-check-input-set .input-check .signup-input {
   width: 100%;
-}
-.signup-section .signup-form .fieldset-wrapper fieldset.password-input-set .input-check .password-check-btn, .signup-section .signup-form .fieldset-wrapper fieldset.password-check-input-set .input-check .password-check-btn {
-  width: 28px;
-  height: 28px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 16px;
-  opacity: 0;
-  margin: 0;
-  z-index: 50;
-}
-.signup-section .signup-form .fieldset-wrapper fieldset.password-input-set .input-check .password-check-btn:checked + .custom-check-btn, .signup-section .signup-form .fieldset-wrapper fieldset.password-check-input-set .input-check .password-check-btn:checked + .custom-check-btn {
-  background: url(../assets/img/icon-check-on.svg) no-repeat center/100% 100%;
 }
 .signup-section .signup-form .fieldset-wrapper fieldset.password-input-set .input-check .custom-check-btn, .signup-section .signup-form .fieldset-wrapper fieldset.password-check-input-set .input-check .custom-check-btn {
   display: inline-block;
@@ -75,6 +66,12 @@
   top: 50%;
   transform: translateY(-50%);
   right: 16px;
+}
+.signup-section .signup-form .fieldset-wrapper fieldset.password-input-set .input-check .custom-check-btn.on, .signup-section .signup-form .fieldset-wrapper fieldset.password-check-input-set .input-check .custom-check-btn.on {
+  background: url(../assets/img/icon-check-on.svg) no-repeat center/100% 100%;
+}
+.signup-section .signup-form .fieldset-wrapper fieldset.password-check-input-set {
+  margin-bottom: 20px;
 }
 .signup-section .signup-form .fieldset-wrapper fieldset.name-input-set {
   margin-bottom: 16px;
@@ -88,9 +85,13 @@
 }
 .signup-section .signup-form .fieldset-wrapper fieldset.phone-number-set .inputs-wrapper select {
   width: 152px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url(../assets/img/icon-down-arrow.svg) no-repeat center right 16px/22px 22px;
 }
 .signup-section .signup-form .fieldset-wrapper fieldset.phone-number-set .inputs-wrapper select:focus {
-  border: 1px solid #21bf48;
+  background: url(../assets/img/icon-up-arrow.svg) no-repeat center right 16px/22px 22px;
 }
 .signup-section .signup-form .fieldset-wrapper fieldset.phone-number-set .inputs-wrapper input {
   width: 152px;
@@ -146,4 +147,6 @@
   width: 480px;
   height: 60px;
   margin: 0 auto;
+  font-size: 18px;
+  font-weight: 700;
 }

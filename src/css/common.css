@@ -12,12 +12,17 @@ a.primary-btn {
 }
 a.primary-btn:disabled {
   background-color: #c4c4c4;
+  cursor: default;
 }
 
 .primary-btn {
   background-color: #21bf48;
   color: white;
   border-radius: 5px;
+}
+.primary-btn:disabled {
+  background-color: #c4c4c4;
+  cursor: default;
 }
 
 .secondary-btn {
@@ -113,4 +118,22 @@ a.primary-btn:disabled {
 .error-message {
   color: #eb5757;
   font-weight: 500;
+}
+.error-message.off {
+  display: none;
+}
+.error-message.on {
+  display: block;
+}
+.error-message.on.signup {
+  margin-top: 10px;
+}
+
+.success-message {
+  color: #21bf48;
+  margin-top: 10px;
+  display: none;
+}
+.success-message.on {
+  display: block;
 }
