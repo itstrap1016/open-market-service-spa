@@ -1,7 +1,17 @@
 import routes from "./routes.js";
+import { getCookie } from "./services/auth.js";
 
 export const router = async () => {
   const path = window.location.pathname;
+  // 로그인된 사용자가 /login에 접근했을 때 처리
+  if (path === "/login") {
+    const refreshToken = getCookie("refresh");
+    if (refreshToken) {
+      alert("이미 로그인된 사용자입니다. 메인 페이지로 이동합니다.");
+      window.location.href = "/"; // 메인 페이지로 리다이렉트
+      return;
+    }
+  }
   const render = routes[path] || routes["404"];
   const html = await render();
   const app = document.getElementById("app");
