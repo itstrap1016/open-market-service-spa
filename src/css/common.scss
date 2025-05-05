@@ -11,6 +11,10 @@ a.primary-btn {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:disabled {
+    background-color: $white-gray-02;
+  }
 }
 
 .primary-btn {

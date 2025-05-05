@@ -10,6 +10,9 @@ a.primary-btn {
   justify-content: center;
   align-items: center;
 }
+a.primary-btn:disabled {
+  background-color: #c4c4c4;
+}
 
 .primary-btn {
   background-color: #21bf48;
