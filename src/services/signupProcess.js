@@ -109,12 +109,10 @@ export const validateSignup = () => {
     if (!idValue) {
       showError($idErrorMessage, errorMessages.required);
       isIdChecked = false;
-    }
-    if (!data) {
+    } else if (!data) {
       showError($idErrorMessage, errorMessages.invalidId, $successMessage);
       isIdChecked = false;
-    }
-    if (data) {
+    } else if (data) {
       hideError($idErrorMessage, $successMessage);
       isIdChecked = true;
     }
@@ -154,9 +152,7 @@ export const validateSignup = () => {
 
     if (!idValue) {
       showError($idErrorMessage, errorMessages.required);
-    }
-
-    if (!passwordValue) {
+    } else if (!passwordValue) {
       showError($passwordErrorMessage, errorMessages.required);
     }
 
@@ -172,15 +168,11 @@ export const validateSignup = () => {
       showError($passwordErrorMessage, errorMessages.required);
       showError($passwordCheckErrorMessage, errorMessages.passwordCheckError);
       isPasswordConfirmed = false;
-    }
-
-    if (passwordCheckValue !== passwordValue) {
+    } else if (passwordCheckValue !== passwordValue) {
       $passwordReCheckBtn.classList.remove("on");
       showError($passwordCheckErrorMessage, errorMessages.passwordCheckError);
       isPasswordConfirmed = false;
-    }
-
-    if (passwordCheckValue === passwordValue && passwordValue) {
+    } else if (passwordCheckValue === passwordValue && passwordValue) {
       $passwordReCheckBtn.classList.add("on");
       hideError($passwordCheckErrorMessage);
       isPasswordConfirmed = true;
@@ -196,13 +188,9 @@ export const validateSignup = () => {
 
     if (!idValue) {
       showError($idErrorMessage, errorMessages.required);
-    }
-
-    if (!passwordValue) {
+    } else if (!passwordValue) {
       showError($passwordErrorMessage, errorMessages.required);
-    }
-
-    if (!passwordCheckValue) {
+    } else if (!passwordCheckValue) {
       showError($passwordCheckErrorMessage, errorMessages.required);
     }
 

@@ -49,10 +49,8 @@ export const loginProcess = async () => {
   // 입력값 검증
   if (!idValue && !passwordValue) {
     showError($errorMessage, errorMessage.idRequired, $idInput, $loginBtn);
-    return;
   } else if (!idValue) {
     showError($errorMessage, errorMessage.idRequired, $idInput, $loginBtn);
-    return;
   } else if (!passwordValue) {
     showError(
       $errorMessage,
@@ -60,7 +58,6 @@ export const loginProcess = async () => {
       $passwordInput,
       $loginBtn
     );
-    return;
   } else if (!data) {
     showError(
       $errorMessage,
@@ -68,7 +65,6 @@ export const loginProcess = async () => {
       $passwordInput,
       $loginBtn
     );
-    return;
   } else if (data && data.user["user_type"] !== loginType) {
     showError(
       $errorMessage,
@@ -76,7 +72,6 @@ export const loginProcess = async () => {
       $passwordInput,
       $loginBtn
     );
-    return;
   }
 
   if (data && data.access && data.refresh) {
