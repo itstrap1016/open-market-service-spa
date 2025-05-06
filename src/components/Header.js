@@ -120,6 +120,27 @@ export const setHeaderEvent = () => {
       }
     });
   }
+  // 장바구니 버튼 클릭 이벤트
+  // if ($shoppingCartBtn) {
+  //   $shoppingCartBtn.addEventListener("click", (e) => {
+  //     e.preventDefault();
+  //     const refreshToken = getCookie("refresh");
+  //     if (!refreshToken) {
+  //       // 비로그인 상태: 모달 창 표시
+  //       $cartModal.classList.remove("hidden");
+  //     } else {
+  //       // 로그인 상태: 장바구니 페이지로 이동
+  //       window.location.href = "/cart";
+  //     }
+  //   });
+  // }
+
+  // 모달 닫기 버튼 이벤트
+  // if ($closeModalBtn) {
+  //   $closeModalBtn.addEventListener("click", () => {
+  //     $cartModal.classList.add("hidden");
+  //   });
+  // }
 };
 
 export default Header;

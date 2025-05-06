@@ -1,0 +1,47 @@
+@import "./variable";
+
+.login-modal {
+  margin: 0;
+  width: 360px;
+  height: 200px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  z-index: 200;
+  display: none;
+  outline: none;
+  border: 1px solid $white-gray-02;
+  padding: 50px 18px 40px 18px;
+
+  &.on {
+    display: inline-block;
+  }
+
+  .close-btn {
+    width: 22px;
+    height: 22px;
+    background: url(../assets/img/icon-delete.svg) no-repeat center / 100% 100%;
+    position: absolute;
+    top: 18px;
+    right: 18px;
+  }
+
+  > p {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .btns {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    button,
+    a {
+      width: 100px;
+      height: 40px;
+    }
+  }
+}
