@@ -1,5 +1,6 @@
 import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
+import { handleSignup } from "../services/signupProcess";
 
 const SignUpForm = () => {
   return `
@@ -39,9 +40,9 @@ const SignUpForm = () => {
             </fieldset>
             <fieldset class="phone-number-set">
               <label for="phone-number-select">휴대폰번호</label>
-              <div class="inputs-wrapper" id="phone-number-select">
+              <div class="inputs-wrapper">
                   <select id="phone-number-select">
-                    <option value="010">010</option>
+                    <option value="010" selected>010</option>
                     <option value="011">011</option>
                     <option value="012">012</option>
                     <option value="013">013</option>
@@ -52,8 +53,8 @@ const SignUpForm = () => {
                     <option value="018">018</option>
                     <option value="019">019</option>
                   </select>
-                  <input type="number" class="signup-input" />
-                  <input type="number" class="signup-input" />
+                  <input type="number" class="signup-input number-input-01" />
+                  <input type="number" class="signup-input number-input-02" />
               </div>
             </fieldset>
         </div>
@@ -73,10 +74,16 @@ const SignUpForm = () => {
 
 export const signupSubmit = () => {
   const $form = document.querySelector(".signup-form");
-  const $btn = document.querySelector(".btn-wrapper .signup-btn");
+  const $btn = document.querySelector(".signup-form .signup-btn");
 
-  $form.addEventListener("submit", () => {});
-  $btn.addEventListener("click", () => {});
+  $form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    await handleSignup();
+  });
+  $btn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    await handleSignup();
+  });
 };
 
 export default SignUpForm;
