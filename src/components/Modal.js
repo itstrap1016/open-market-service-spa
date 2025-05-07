@@ -8,7 +8,7 @@ const Modal = () => {
         </p>
         <div class="btns">
             <button class="secondary-btn">아니오</button>
-            <a class="primary-btn" href="#">예</a>
+            <a class="primary-btn" href="/login">예</a>
         </div>
       </dialog>
     `;
@@ -21,13 +21,13 @@ export const setModalEvents = () => {
 
   if ($closeBtn) {
     $closeBtn.addEventListener("click", () => {
-      $modal.close(); // 모달 닫기
+      $modal.classList.remove("on"); // 모달 닫기
     });
   }
 
   if ($noBtn) {
     $noBtn.addEventListener("click", () => {
-      $modal.close(); // 모달 닫기
+      $modal.classList.remove("on"); // 모달 닫기
     });
   }
 };

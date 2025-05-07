@@ -1,5 +1,6 @@
 import { getProductById } from "../api/productApi";
 import { counter } from "../services/counter";
+import { getCookie } from "../services/auth";
 
 let stock;
 let price;
@@ -68,6 +69,22 @@ const Product = async (id) => {
 export const setProductEvent = () => {
   const $minusBtn = document.querySelector(".counter .minus");
   const $plusBtn = document.querySelector(".counter .plus");
+  const $buyBtn = document.querySelector(".product-detail .buy-btn");
+  const $cartBtn = document.querySelector(".product-detail .shopping-cart-btn");
+  const $modal = document.querySelector(".login-modal");
+  const refreshToken = getCookie("refresh");
+
+  $buyBtn.addEventListener("click", () => {
+    if (!refreshToken) {
+      $modal.classList.add("on");
+    }
+  });
+
+  $cartBtn.addEventListener("click", () => {
+    if (!refreshToken) {
+      $modal.classList.add("on");
+    }
+  });
 
   $minusBtn.addEventListener("click", () => {
     counter("-", price);
