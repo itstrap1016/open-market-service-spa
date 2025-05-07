@@ -1,10 +1,13 @@
 import { getProductById } from "../api/productApi";
+import { counter } from "../services/counter";
 
 let stock;
+let price;
 
 const Product = async (id) => {
   const product = await getProductById(id);
   stock = product.stock;
+  price = product.price;
   console.log(product, stock);
 
   return `
@@ -60,6 +63,19 @@ const Product = async (id) => {
       </ul>       
     </section>
   `;
+};
+
+export const setProductEvent = () => {
+  const $minusBtn = document.querySelector(".counter .minus");
+  const $plusBtn = document.querySelector(".counter .plus");
+
+  $minusBtn.addEventListener("click", () => {
+    counter("-", price);
+  });
+  $plusBtn.addEventListener("click", () => {
+    console.log(stock);
+    counter("+", price, stock);
+  });
 };
 
 export default Product;

@@ -1,6 +1,6 @@
 import Header, { setHeaderEvent } from "../components/Header";
 import Footer from "../components/Footer";
-import Product from "../components/Product";
+import Product, { setProductEvent } from "../components/Product";
 
 const ProductDetail = async (id) => {
   const html = `${Header()}
@@ -9,6 +9,7 @@ const ProductDetail = async (id) => {
 
   const observer = new MutationObserver(() => {
     setHeaderEvent();
+    setProductEvent();
     observer.disconnect(); // 초기화 후 관찰 중지
   });
   observer.observe(document.getElementById("app"), { childList: true });
