@@ -1,10 +1,6 @@
 import { validateUsername } from "../api/signupApi";
 import { buyerSignup } from "../api/signupApi";
 
-export const signupCheckStates = {
-  idChecked: false,
-};
-
 const errorMessages = {
   required: "필수 정보입니다",
   invalidId: "사용할 수 없는 아이디 입니다",
@@ -106,7 +102,7 @@ export const validateSignup = () => {
   );
 
   // signup-form 내 모든 input과 select 요소에 이벤트 추가
-  const formElements = $signupForm.querySelectorAll("input, select");
+  const formElements = $signupForm.querySelectorAll("button, input, select");
 
   formElements.forEach((element) => {
     // 클릭 이벤트

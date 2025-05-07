@@ -79,6 +79,9 @@
 .signup-section .signup-form .fieldset-wrapper fieldset.name-input-set .signup-input {
   width: 100%;
 }
+.signup-section .signup-form .fieldset-wrapper fieldset.phone-number-set {
+  margin-bottom: 0;
+}
 .signup-section .signup-form .fieldset-wrapper fieldset.phone-number-set .inputs-wrapper {
   display: flex;
   gap: 12px;
@@ -95,6 +98,27 @@
 }
 .signup-section .signup-form .fieldset-wrapper fieldset.phone-number-set .inputs-wrapper input {
   width: 152px;
+}
+.signup-section .signup-form .fieldset-wrapper fieldset.business-number-set {
+  margin-top: 50px;
+  margin-bottom: 16px;
+}
+.signup-section .signup-form .fieldset-wrapper fieldset.business-number-set .input-button {
+  display: flex;
+  gap: 12px;
+}
+.signup-section .signup-form .fieldset-wrapper fieldset.business-number-set .input-button input {
+  width: 346px;
+}
+.signup-section .signup-form .fieldset-wrapper fieldset.business-number-set .input-button .primary-btn {
+  width: 122px;
+}
+.signup-section .signup-form .fieldset-wrapper fieldset.store-name-set {
+  margin-bottom: 0;
+}
+.signup-section .signup-form .fieldset-wrapper fieldset.store-name-set input {
+  display: block;
+  width: 100%;
 }
 .signup-section .signup-form .terms-agreement {
   display: flex;

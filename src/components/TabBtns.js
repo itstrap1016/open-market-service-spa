@@ -1,12 +1,15 @@
+import { validateSignup } from "../services/signupProcess";
+import SignUpForm from "./SignUpForm";
+
 const TabBtns = (name1 = "버튼", name2 = "버튼", type = "") => {
   let typeName1;
   let typeName2;
 
-  if (name1 === "구매회원 로그인") {
+  if (name1 === "구매회원 로그인" || name1 === "구매회원가입") {
     typeName1 = "BUYER";
   }
 
-  if (name2 === "판매회원 로그인") {
+  if (name2 === "판매회원 로그인" || name2 === "판매회원가입") {
     typeName2 = "SELLER";
   }
 
@@ -25,6 +28,9 @@ const TabBtns = (name1 = "버튼", name2 = "버튼", type = "") => {
 // 버튼 이벤트 리스너 등록
 export const tabBtnsEvent = () => {
   const buttons = document.querySelectorAll(".tab-btn");
+  const $formWrapper = document.querySelector(
+    ".common-form-wrap > .signup-form-wrapper"
+  );
 
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -33,6 +39,17 @@ export const tabBtnsEvent = () => {
 
       // 클릭된 버튼에 active 클래스 추가
       button.classList.add("active");
+
+      const type = button.dataset.signupType;
+      if (type && type === "BUYER") {
+        $formWrapper.innerHTML = "";
+        $formWrapper.insertAdjacentHTML("afterbegin", SignUpForm());
+        validateSignup();
+      } else if (type && type === "SELLER") {
+        $formWrapper.innerHTML = "";
+        $formWrapper.insertAdjacentHTML("afterbegin", SignUpForm("SELLER"));
+        validateSignup();
+      }
     });
   });
 };

@@ -22,6 +22,8 @@ export const validateUsername = async (username) => {
   }
 };
 
+export const validateBusinessNumber = async () => {};
+
 export const buyerSignup = async ({
   username,
   password,

@@ -99,6 +99,7 @@
         }
 
         &.phone-number-set {
+          margin-bottom: 0;
           .inputs-wrapper {
             display: flex;
             gap: 12px;
@@ -118,6 +119,30 @@
             input {
               width: 152px;
             }
+          }
+        }
+
+        &.business-number-set {
+          margin-top: 50px;
+          margin-bottom: 16px;
+
+          .input-button {
+            display: flex;
+            gap: 12px;
+
+            input {
+              width: 346px;
+            }
+            .primary-btn {
+              width: 122px;
+            }
+          }
+        }
+        &.store-name-set {
+          margin-bottom: 0;
+          input {
+            display: block;
+            width: 100%;
           }
         }
       }

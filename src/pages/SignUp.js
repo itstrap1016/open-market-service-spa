@@ -1,5 +1,5 @@
 import FormLogo from "../components/FormLogo";
-import TabBtns from "../components/TabBtns";
+import TabBtns, { tabBtnsEvent } from "../components/TabBtns";
 import SignUpForm, { signupSubmit } from "../components/SignUpForm";
 import { validateSignup } from "../services/signupProcess";
 
@@ -9,7 +9,7 @@ const SignUp = () => {
         ${FormLogo()}
         <div class="common-form-wrap">
           ${TabBtns("구매회원가입", "판매회원가입", "signup")}
-          <div>
+          <div class="signup-form-wrapper">
             ${SignUpForm()}
           </div>
         </div>
@@ -19,6 +19,7 @@ const SignUp = () => {
   const observer = new MutationObserver(() => {
     validateSignup();
     signupSubmit();
+    tabBtnsEvent();
     observer.disconnect(); // 초기화 후 관찰 중지
   });
   observer.observe(document.getElementById("app"), { childList: true });

@@ -2,7 +2,30 @@ import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
 import { handleSignup } from "../services/signupProcess";
 
-const SignUpForm = () => {
+const SignUpForm = (type = null) => {
+  let additionalHtml;
+  if (type === "SELLER") {
+    additionalHtml = `
+    <fieldset class="business-number-set">
+      <label for="business-number">사업자 등록번호</label>
+      <div class="input-button">
+          <input id="business-number" class="signup-input" type="number" />
+          <button class="business-number-validate-btn primary-btn" type="button">
+          인증
+          </button>
+      </div>
+      ${ErrorMessage("")}
+      ${SuccessMessage()}
+    </fieldset>
+    <fieldset class="store-name-set">
+      <label for="business-number">스토어 이름</label>
+      <input id="business-number" class="signup-input" type="text" />
+      ${ErrorMessage("")}
+      ${SuccessMessage()}
+    </fieldset>
+    `;
+  }
+
   return `
       <form class="signup-form">
         <div class="fieldset-wrapper">
@@ -57,6 +80,7 @@ const SignUpForm = () => {
                   <input type="number" class="signup-input number-input-02" />
               </div>
             </fieldset>
+            ${type === "SELLER" ? additionalHtml : ""}
         </div>
         <div class="terms-agreement">
           <div class="checkbox-wrapper">
