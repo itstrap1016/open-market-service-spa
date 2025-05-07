@@ -1,4 +1,4 @@
-import { validateUsername } from "../api/signupApi";
+import { validateBusinessNumber, validateUsername } from "../api/signupApi";
 import { buyerSignup } from "../api/signupApi";
 
 const errorMessages = {
@@ -78,6 +78,10 @@ export const validateSignup = () => {
   const $idInput = document.querySelector("#user-id");
   const $passwordInput = document.querySelector("#password");
   const $passwordCheckInput = document.querySelector("#password-check");
+  const $businessInput = document.querySelector("#business-number");
+  const $businessValidateBtn = document.querySelector(
+    ".business-number-validate-btn"
+  );
   const $idValidateBtn = document.querySelector(".id-validate-btn");
   const $idErrorMessage = document.querySelector(
     ".id-input-set .error-message"
@@ -88,8 +92,14 @@ export const validateSignup = () => {
   const $passwordCheckErrorMessage = document.querySelector(
     ".password-check-input-set .error-message"
   );
+  const $businessErrorMessage = document.querySelector(
+    ".business-number-set .error-message"
+  );
   const $successMessage = document.querySelector(
     ".id-input-set .success-message"
+  );
+  const $businessSuccessMessage = document.querySelector(
+    ".business-number-set .success-message"
   );
   const $passwordCheckBtn = document.querySelector(
     ".password-input-set .custom-check-btn"
@@ -198,6 +208,23 @@ export const validateSignup = () => {
       isPasswordConfirmed = true;
     }
   });
+
+  if ($businessInput) {
+    $businessValidateBtn.addEventListener("click", async () => {
+      const value = $businessInput.value.trim();
+      const data = await validateBusinessNumber(value);
+
+      if (data) {
+        hideError($businessErrorMessage, $businessSuccessMessage);
+      } else {
+        showError(
+          $businessErrorMessage,
+          "올바르지 않은 사업자 인증번호입니다",
+          $businessSuccessMessage
+        );
+      }
+    });
+  }
 
   $termsCheckbox.addEventListener("change", () => {
     updateSignupBtnState(); // 버튼 상태 업데이트
