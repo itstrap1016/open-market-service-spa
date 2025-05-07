@@ -29,6 +29,8 @@ export const buyerSignup = async ({
   phone_number,
 }) => {
   try {
+    console.log("Request Body:", { username, password, name, phone_number });
+
     const response = await fetch(`${URL}accounts/buyer/signup/`, {
       method: "POST",
       headers: {
@@ -37,11 +39,16 @@ export const buyerSignup = async ({
       body: JSON.stringify({ username, password, name, phone_number }), // JSON 형식으로 변환하여 전송
     });
 
+    console.log("Response Status:", response.status);
+
     if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Server Error:", errorData);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json(); // JSON 데이터를 JavaScript 객체로 변환
+    console.log("Response Data:", data);
     return data; // 변환된 데이터를 반환
   } catch (error) {
     console.error(error);

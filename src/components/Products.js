@@ -3,7 +3,7 @@ import { getProducts } from "../api/productApi.js";
 const createProduct = (data) => {
   return `
     <li>
-      <a href="#">
+      <a href="/product/${data.id}">
         <div class="img-wrapper">
           <img src="${data.image}" alt="${data.name}"/>
         </div>

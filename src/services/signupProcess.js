@@ -216,18 +216,24 @@ export const handleSignup = async () => {
   const $phoneNumberInput1 = document.querySelector(".number-input-01");
   const $phoneNumberInput2 = document.querySelector(".number-input-02");
 
-  console.log($phoneNumberSelect);
-
   // 입력값 가져오기
   const username = $idInput.value.trim();
   const password = $passwordInput.value.trim();
   const name = $nameInput.value.trim();
-  const phoneNumber = `${
+  const phone_number = `${
     $phoneNumberSelect.value
   }${$phoneNumberInput1.value.trim()}${$phoneNumberInput2.value.trim()}`;
 
+  console.log(username, password, name, phone_number);
+  console.log(
+    typeof username,
+    typeof password,
+    typeof name,
+    typeof phoneNumber
+  );
+
   // 입력값 검증
-  if (!username || !password || !name || !phoneNumber) {
+  if (!username || !password || !name || !phone_number) {
     alert("모든 필드를 입력해 주세요.");
     return;
   }
@@ -238,7 +244,7 @@ export const handleSignup = async () => {
       username,
       password,
       name,
-      phoneNumber,
+      phone_number,
     });
 
     if (response) {

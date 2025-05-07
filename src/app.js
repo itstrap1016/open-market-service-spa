@@ -3,6 +3,7 @@ import { getCookie } from "./services/auth.js";
 
 export const router = async () => {
   const path = window.location.pathname;
+
   // 로그인된 사용자가 /login에 접근했을 때 처리
   if (path === "/login") {
     const refreshToken = getCookie("refresh");
@@ -12,6 +13,20 @@ export const router = async () => {
       return;
     }
   }
+
+  // 동적 경로 처리 (예: /product/:id)
+  const dynamicMatch = path.match(/^\/product\/(\d+)$/);
+  if (dynamicMatch) {
+    const productId = dynamicMatch[1]; // 상품 ID 추출
+    const render = routes["/product/:id"];
+    const html = await render(productId);
+    const app = document.getElementById("app");
+    app.innerHTML = "";
+    app.insertAdjacentHTML("afterbegin", html);
+    return;
+  }
+
+  // 정적 경로 처리
   const render = routes[path] || routes["404"];
   const html = await render();
   const app = document.getElementById("app");
