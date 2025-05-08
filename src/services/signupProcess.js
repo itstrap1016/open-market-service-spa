@@ -1,5 +1,9 @@
-import { validateBusinessNumber, validateUsername } from "../api/signupApi";
-import { buyerSignup, sellerSignup } from "../api/signupApi";
+import {
+  validateBusinessNumber,
+  validateUsername,
+  buyerSignup,
+  sellerSignup,
+} from "../api/signupApi";
 
 const checkStatus = {
   isIdChecked: false, // 아이디 중복확인 상태
