@@ -12,7 +12,6 @@ a.primary-btn {
 }
 a.primary-btn:disabled {
   background-color: #c4c4c4;
-  cursor: default;
 }
 
 .primary-btn {
@@ -22,7 +21,6 @@ a.primary-btn:disabled {
 }
 .primary-btn:disabled {
   background-color: #c4c4c4;
-  cursor: default;
 }
 
 .secondary-btn {
@@ -30,6 +28,10 @@ a.primary-btn:disabled {
   border-radius: 5px;
   color: #767676;
   border: 1px solid #c4c4c4;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
 
 .form-logo {

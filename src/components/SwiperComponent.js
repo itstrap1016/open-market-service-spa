@@ -3,6 +3,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { getSellerName } from "../services/auth";
 
 const SwiperComponet = () => {
   return `
@@ -20,6 +21,13 @@ const SwiperComponet = () => {
 };
 
 export const setSwiper = () => {
+  const $swiper = document.querySelector(".swiper");
+  const sellerName = getSellerName();
+
+  if (sellerName) {
+    $swiper.classList.add("has-more-padding");
+  }
+
   if (typeof Swiper === "undefined") {
     console.error("Swiper is not loaded. Please check the Swiper library.");
     return;

@@ -1,6 +1,6 @@
 import { getProductById } from "../api/productApi";
 import { counter } from "../services/counter";
-import { getCookie } from "../services/auth";
+import { getCookie, getSellerName } from "../services/auth";
 
 let stock;
 let price;
@@ -44,7 +44,7 @@ const Product = async (id) => {
           </div>
           <div class="btns">
             <button class="primary-btn buy-btn">바로 구매</button>
-            <a href="#" class="shopping-cart-btn">장바구니</a>
+            <button class="shopping-cart-btn">장바구니</button>
           </div>
         </div>
       </div>
@@ -72,7 +72,15 @@ export const setProductEvent = () => {
   const $buyBtn = document.querySelector(".product-detail .buy-btn");
   const $cartBtn = document.querySelector(".product-detail .shopping-cart-btn");
   const $modal = document.querySelector(".login-modal");
-  const refreshToken = getCookie("refresh");
+  const refreshToken = getCookie("refreshToken");
+  const sellerName = getSellerName();
+
+  if (sellerName) {
+    $buyBtn.disabled = true;
+    $cartBtn.disabled = true;
+    $minusBtn.disabled = true;
+    $plusBtn.disabled = true;
+  }
 
   $buyBtn.addEventListener("click", () => {
     if (!refreshToken) {
