@@ -76,20 +76,17 @@ export const loginProcess = async () => {
 
   if (data && data.access && data.refresh) {
     console.log("로그인 성공");
+    console.log(data.user.username);
     hideError($errorMessage, $loginBtn);
 
-    // 환경에 따라 Secure 옵션 설정
-    const isProduction = window.location.hostname !== "localhost";
-
     // Refresh Token 저장 (1일 유효)
-    document.cookie = `refresh=${data.refresh}; path=/; max-age=86400; ${
-      isProduction ? "Secure;" : ""
-    } SameSite=Strict`;
+    document.cookie = `refreshToken=${data.refresh}; path=/; max-age=86400; Secure; SameSite=Strict`;
 
     // loginType 저장 (1일 유효)
-    document.cookie = `loginType=${loginType}; path=/; max-age=86400; ${
-      isProduction ? "Secure;" : ""
-    } SameSite=Strict`;
+    document.cookie = `loginType=${loginType}; path=/; max-age=86400; Secure; SameSite=Strict`;
+
+    // userId 저장 (1일 유효)
+    document.cookie = `userName=${data.user.name}; path=/; max-age=86400; Secure; SameSite=Strict`;
 
     // 페이지로 이동
     window.location.href = "/";

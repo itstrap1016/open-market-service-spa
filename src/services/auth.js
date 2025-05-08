@@ -10,7 +10,19 @@ const deleteCookie = (name) => {
 };
 
 export const logout = () => {
-  deleteCookie("access");
-  deleteCookie("refresh");
+  deleteCookie("refreshToken");
   deleteCookie("loginType");
+  deleteCookie("userName");
+};
+
+export const getSellerName = () => {
+  const refreshToken = getCookie("refreshToken");
+  const loginType = getCookie("loginType");
+  const userName = getCookie("userName");
+
+  if (refreshToken && loginType === "SELLER") {
+    return userName;
+  } else {
+    return false;
+  }
 };

@@ -6,7 +6,6 @@ import "swiper/css/pagination";
 
 const SwiperComponet = () => {
   return `
-
       <div class="swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">Slide 1</div>
@@ -29,6 +28,10 @@ export const setSwiper = () => {
   const swiper = new Swiper(".swiper", {
     direction: "horizontal",
     loop: true,
+    autoplay: {
+      delay: 3000, // 3초마다 슬라이드
+      disableOnInteraction: false, // 사용자 상호작용 후에도 자동 슬라이드 유지
+    },
     pagination: {
       el: ".swiper-pagination",
       clickable: true, // 페이지네이션 클릭 가능
@@ -39,6 +42,8 @@ export const setSwiper = () => {
     },
     modules: [Navigation, Pagination],
   });
+
+  return swiper;
 };
 
 export default SwiperComponet;

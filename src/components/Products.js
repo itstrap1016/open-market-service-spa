@@ -1,4 +1,5 @@
-import { getProducts } from "../api/productApi.js";
+import { getProducts, getProductsBySeller } from "../api/productApi.js";
+import { getSellerName } from "../services/auth.js";
 
 const createProduct = (data) => {
   return `
@@ -16,6 +17,12 @@ const createProduct = (data) => {
 };
 
 const createProducts = async () => {
+  const sellerName = getSellerName();
+  let sellerProducts;
+  if (sellerName) {
+    const data = await getProductsBySeller(sellerName);
+    sellerProducts = data.results;
+  }
   const data = await getProducts();
   const products = data.results;
   const $section = document.createElement("section");
@@ -28,6 +35,11 @@ const createProducts = async () => {
   $ul.classList.add("products-list");
   for (let i = 0; i < products.length; i++) {
     $ul.insertAdjacentHTML("afterbegin", createProduct(products[i]));
+  }
+  if (sellerProducts) {
+    for (let i = 0; i < sellerProducts.length; i++) {
+      $ul.insertAdjacentHTML("beforeend", createProduct(sellerProducts[i]));
+    }
   }
   return $section.outerHTML;
 };
