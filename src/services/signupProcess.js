@@ -1,9 +1,10 @@
 import { validateBusinessNumber, validateUsername } from "../api/signupApi";
-import { buyerSignup } from "../api/signupApi";
+import { buyerSignup, sellerSignup } from "../api/signupApi";
 
 const checkStatus = {
   isIdChecked: false, // 아이디 중복확인 상태
   isPasswordConfirmed: false, // 비밀번호 재확인 상태
+  isBusinessChecked: true,
 };
 
 const getInputDoms = () => {
@@ -69,8 +70,14 @@ const getMessageDoms = () => {
   const $nameErrorMessage = document.querySelector(
     ".name-input-set .error-message"
   );
+  const $phoneErrorMessage = document.querySelector(
+    ".phone-number-set .error-message"
+  );
   const $businessErrorMessage = document.querySelector(
     ".business-number-set .error-message"
+  );
+  const $storeErrorMessage = document.querySelector(
+    ".store-name-set .error-message"
   );
   const $successMessage = document.querySelector(
     ".id-input-set .success-message"
@@ -84,7 +91,9 @@ const getMessageDoms = () => {
     $passwordErrorMessage,
     $passwordCheckErrorMessage,
     $nameErrorMessage,
+    $phoneErrorMessage,
     $businessErrorMessage,
+    $storeErrorMessage,
     $successMessage,
     $businessSuccessMessage,
   };
@@ -149,6 +158,7 @@ const updateSignupBtnState = () => {
     isTermsChecked &&
     checkStatus.isIdChecked &&
     checkStatus.isPasswordConfirmed &&
+    checkStatus.isBusinessChecked &&
     $passwordCheckBtn.classList.contains("on") &&
     $passwordReCheckBtn.classList.contains("on") &&
     businessNumberValue &&
@@ -168,7 +178,9 @@ export const validateSignup = () => {
     $passwordCheckInput,
     $nameInput,
     $businessInput,
+    $storeNameInput,
     $phoneNumberInput1,
+    $phoneNumberInput2,
   } = getInputDoms();
   const {
     $idValidateBtn,
@@ -182,7 +194,9 @@ export const validateSignup = () => {
     $passwordErrorMessage,
     $passwordCheckErrorMessage,
     $nameErrorMessage,
+    $phoneErrorMessage,
     $businessErrorMessage,
+    $storeErrorMessage,
     $successMessage,
     $businessSuccessMessage,
   } = getMessageDoms();
@@ -220,11 +234,13 @@ export const validateSignup = () => {
   $idValidateBtn.addEventListener("click", async () => {
     const idValue = $idInput.value.trim();
     const data = await validateUsername(idValue);
+    console.log(data);
 
     if (data && data.error) {
-      showError($idErrorMessage, data.error);
+      showError($idErrorMessage, data.error, $successMessage);
       checkStatus.isIdChecked = false;
-    } else if (data & !data.error) {
+    } else if (data && data.message) {
+      console.log("working");
       hideError($idErrorMessage, $successMessage);
       checkStatus.isIdChecked = true;
     }
@@ -301,6 +317,16 @@ export const validateSignup = () => {
     }
   });
 
+  $nameInput.addEventListener("blur", () => {
+    const nameValue = $nameInput.value.trim();
+
+    if (!nameValue) {
+      showError($nameErrorMessage, errorMessages.required);
+    } else {
+      hideError($nameErrorMessage);
+    }
+  });
+
   $phoneNumberInput1.addEventListener("click", () => {
     const idValue = $idInput.value.trim();
     const passwordValue = $passwordInput.value.trim();
@@ -321,15 +347,102 @@ export const validateSignup = () => {
     }
   });
 
+  $phoneNumberInput1.addEventListener("blur", () => {
+    const phoneValue = $phoneNumberInput1.value.trim();
+
+    if (!phoneValue) {
+      showError($phoneErrorMessage, errorMessages.required);
+    } else {
+      hideError($phoneErrorMessage);
+    }
+  });
+
   if ($businessInput) {
     $businessValidateBtn.addEventListener("click", async () => {
       const value = $businessInput.value.trim();
       const data = await validateBusinessNumber(value);
 
-      if (data && !data.error) {
+      if (data && data.message) {
         hideError($businessErrorMessage, $businessSuccessMessage);
+        checkStatus.isBusinessChecked = true;
       } else if (data && data.error) {
         showError($businessErrorMessage, data.error, $businessSuccessMessage);
+        checkStatus.isBusinessChecked = false;
+      }
+    });
+
+    $businessInput.addEventListener("click", () => {
+      const idValue = $idInput.value.trim();
+      const passwordValue = $passwordInput.value.trim();
+      const passwordCheckValue = $passwordCheckInput.value.trim();
+      const nameValue = $nameInput.value.trim();
+      const phoneNumberValue1 = $phoneNumberInput1.value.trim();
+      const phoneNumberValue2 = $phoneNumberInput2.value.trim();
+
+      if (!idValue) {
+        showError($idErrorMessage, errorMessages.required);
+      }
+      if (!passwordValue) {
+        showError($passwordErrorMessage, errorMessages.required);
+      }
+      if (!passwordCheckValue) {
+        showError($passwordCheckErrorMessage, errorMessages.required);
+      }
+      if (!nameValue) {
+        showError($nameErrorMessage, errorMessages.required);
+      }
+      if (!phoneNumberValue1 || !phoneNumberValue2) {
+        showError($phoneErrorMessage, errorMessages.required);
+      }
+    });
+
+    $businessInput.addEventListener("blur", () => {
+      const businessValue = $businessInput.value.trim();
+
+      if (!businessValue) {
+        showError($businessErrorMessage, errorMessages.required);
+      } else {
+        hideError($businessErrorMessage);
+      }
+    });
+  }
+
+  if ($storeNameInput) {
+    $storeNameInput.addEventListener("click", () => {
+      const idValue = $idInput.value.trim();
+      const passwordValue = $passwordInput.value.trim();
+      const passwordCheckValue = $passwordCheckInput.value.trim();
+      const nameValue = $nameInput.value.trim();
+      const phoneNumberValue1 = $phoneNumberInput1.value.trim();
+      const phoneNumberValue2 = $phoneNumberInput2.value.trim();
+      const businessValue = $businessInput.value.trim();
+
+      if (!idValue) {
+        showError($idErrorMessage, errorMessages.required);
+      }
+      if (!passwordValue) {
+        showError($passwordErrorMessage, errorMessages.required);
+      }
+      if (!passwordCheckValue) {
+        showError($passwordCheckErrorMessage, errorMessages.required);
+      }
+      if (!nameValue) {
+        showError($nameErrorMessage, errorMessages.required);
+      }
+      if (!phoneNumberValue1 || !phoneNumberValue2) {
+        showError($phoneErrorMessage, errorMessages.required);
+      }
+      if (!businessValue) {
+        showError($businessErrorMessage, errorMessages.required);
+      }
+    });
+    $storeNameInput.addEventListener("blur", () => {
+      const storeValue = $storeNameInput.value.trim();
+
+      if (!storeValue) {
+        showError($storeErrorMessage, errorMessages.required);
+      } else {
+        hideError($storeErrorMessage);
       }
     });
   }
@@ -340,12 +453,20 @@ export const validateSignup = () => {
 };
 
 export const handleSignup = async () => {
-  const $idInput = document.querySelector("#user-id");
-  const $passwordInput = document.querySelector("#password");
-  const $nameInput = document.querySelector("#name");
-  const $phoneNumberSelect = document.querySelector("#phone-number-select");
-  const $phoneNumberInput1 = document.querySelector(".number-input-01");
-  const $phoneNumberInput2 = document.querySelector(".number-input-02");
+  // DOM 가져오기
+  const {
+    $idInput,
+    $passwordInput,
+    $nameInput,
+    $businessInput,
+    $storeNameInput,
+    $phoneNumberInput1,
+    $phoneNumberInput2,
+    $phoneNumberSelect,
+  } = getInputDoms();
+
+  const $activeTab = document.querySelector(".tab-btn.active"); // 활성화된 탭
+  const signupType = $activeTab ? $activeTab.dataset.signupType : null; // 탭의 데이터 속성으로 타입 확인
 
   // 입력값 가져오기
   const username = $idInput.value.trim();
@@ -354,14 +475,8 @@ export const handleSignup = async () => {
   const phone_number = `${
     $phoneNumberSelect.value
   }${$phoneNumberInput1.value.trim()}${$phoneNumberInput2.value.trim()}`;
-
-  console.log(username, password, name, phone_number);
-  console.log(
-    typeof username,
-    typeof password,
-    typeof name,
-    typeof phoneNumber
-  );
+  const business_number = $businessInput ? $businessInput.value.trim() : null;
+  const store_name = $storeNameInput ? $storeNameInput.value.trim() : null;
 
   // 입력값 검증
   if (!username || !password || !name || !phone_number) {
@@ -370,14 +485,25 @@ export const handleSignup = async () => {
   }
 
   try {
-    // API 호출
-    const response = await buyerSignup({
-      username,
-      password,
-      name,
-      phone_number,
-    });
+    let response;
 
+    // 구매자 회원가입
+    if (signupType === "BUYER") {
+      response = await buyerSignup({ username, password, name, phone_number });
+    }
+    // 판매자 회원가입
+    else if (signupType === "SELLER") {
+      // 판매자 회원가입 API 호출
+      response = await sellerSignup({
+        username,
+        password,
+        name,
+        phone_number,
+        company_registration_number: business_number,
+        store_name,
+      });
+    }
+    // 성공 처리
     if (response) {
       alert("회원가입이 성공적으로 완료되었습니다!");
       window.location.href = "/login"; // 회원가입 후 로그인 페이지로 이동

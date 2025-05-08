@@ -81,11 +81,6 @@ export const loginProcess = async () => {
     // 환경에 따라 Secure 옵션 설정
     const isProduction = window.location.hostname !== "localhost";
 
-    // Access Token 저장 (5분 유효)
-    document.cookie = `access=${data.access}; path=/; max-age=300; ${
-      isProduction ? "Secure;" : ""
-    } SameSite=Strict`;
-
     // Refresh Token 저장 (1일 유효)
     document.cookie = `refresh=${data.refresh}; path=/; max-age=86400; ${
       isProduction ? "Secure;" : ""

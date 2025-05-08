@@ -78,6 +78,7 @@ const SignUpForm = (type = null) => {
                   <input type="number" class="signup-input number-input-01" />
                   <input type="number" class="signup-input number-input-02" />
               </div>
+              ${ErrorMessage("")}
             </fieldset>
             ${type === "SELLER" ? additionalHtml : ""}
         </div>
