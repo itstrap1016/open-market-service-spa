@@ -15,13 +15,12 @@ const SignUpForm = (type = null) => {
           </button>
       </div>
       ${ErrorMessage("")}
-      ${SuccessMessage()}
+      ${SuccessMessage("사용 가능한 사업자등록번호입니다.")}
     </fieldset>
     <fieldset class="store-name-set">
-      <label for="business-number">스토어 이름</label>
-      <input id="business-number" class="signup-input" type="text" />
+      <label for="store-name">스토어 이름</label>
+      <input id="store-name" class="signup-input" type="text" />
       ${ErrorMessage("")}
-      ${SuccessMessage()}
     </fieldset>
     `;
   }

@@ -11,7 +11,8 @@ export const validateUsername = async (username) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorData = await response.json();
+      return errorData;
     }
 
     const data = await response.json(); // JSON 데이터를 JavaScript 객체로 변환
@@ -37,8 +38,7 @@ export const validateBusinessNumber = async (company_registration_number) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error("Server Error:", errorData);
-      throw new Error(`HTTP error! status: ${response.status}`);
+      return errorData;
     }
 
     const data = await response.json(); // JSON 데이터를 JavaScript 객체로 변환

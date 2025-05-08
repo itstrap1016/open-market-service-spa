@@ -1,9 +1,97 @@
 import { validateBusinessNumber, validateUsername } from "../api/signupApi";
 import { buyerSignup } from "../api/signupApi";
 
+const checkStatus = {
+  isIdChecked: false, // 아이디 중복확인 상태
+  isPasswordConfirmed: false, // 비밀번호 재확인 상태
+};
+
+const getInputDoms = () => {
+  const $idInput = document.querySelector("#user-id");
+  const $passwordInput = document.querySelector("#password");
+  const $passwordCheckInput = document.querySelector("#password-check");
+  const $nameInput = document.querySelector("#name");
+  const $businessInput = document.querySelector("#business-number");
+  const $storeNameInput = document.querySelector("#store-name");
+  const $phoneNumberSelect = document.querySelector("#phone-number-select");
+  const $phoneNumberInput1 = document.querySelector(".number-input-01");
+  const $phoneNumberInput2 = document.querySelector(".number-input-02");
+
+  return {
+    $idInput,
+    $passwordInput,
+    $passwordCheckInput,
+    $nameInput,
+    $businessInput,
+    $storeNameInput,
+    $phoneNumberInput1,
+    $phoneNumberInput2,
+    $phoneNumberSelect,
+  };
+};
+
+const getButtonDoms = () => {
+  const $idValidateBtn = document.querySelector(".id-validate-btn");
+  const $businessValidateBtn = document.querySelector(
+    ".business-number-validate-btn"
+  );
+  const $passwordCheckBtn = document.querySelector(
+    ".password-input-set .custom-check-btn"
+  );
+  const $passwordReCheckBtn = document.querySelector(
+    ".password-check-input-set .custom-check-btn"
+  );
+  const $termsCheckbox = document.querySelector(
+    ".terms-agreement input[type='checkbox']"
+  );
+  const $signupBtn = document.querySelector(".signup-btn");
+
+  return {
+    $idValidateBtn,
+    $businessValidateBtn,
+    $passwordCheckBtn,
+    $passwordReCheckBtn,
+    $termsCheckbox,
+    $signupBtn,
+  };
+};
+
+const getMessageDoms = () => {
+  const $idErrorMessage = document.querySelector(
+    ".id-input-set .error-message"
+  );
+  const $passwordErrorMessage = document.querySelector(
+    ".password-input-set .error-message"
+  );
+  const $passwordCheckErrorMessage = document.querySelector(
+    ".password-check-input-set .error-message"
+  );
+  const $nameErrorMessage = document.querySelector(
+    ".name-input-set .error-message"
+  );
+  const $businessErrorMessage = document.querySelector(
+    ".business-number-set .error-message"
+  );
+  const $successMessage = document.querySelector(
+    ".id-input-set .success-message"
+  );
+  const $businessSuccessMessage = document.querySelector(
+    ".business-number-set .success-message"
+  );
+
+  return {
+    $idErrorMessage,
+    $passwordErrorMessage,
+    $passwordCheckErrorMessage,
+    $nameErrorMessage,
+    $businessErrorMessage,
+    $successMessage,
+    $businessSuccessMessage,
+  };
+};
+
 const errorMessages = {
   required: "필수 정보입니다",
-  invalidId: "사용할 수 없는 아이디 입니다",
   invalidPassword:
     "비밀번호는 8자 이상, 영문 대소문자, 숫자, 특수문자를 포함해야 합니다.",
   passwordCheckError: "비밀번호가 일치하지 않습니다.",
@@ -31,29 +119,26 @@ const hideError = ($errorElement, $successElement = null) => {
   }
 };
 
-let isIdChecked = false; // 아이디 중복확인 상태
-let isPasswordConfirmed = false; // 비밀번호 재확인 상태
-
 const updateSignupBtnState = () => {
-  const $idInput = document.querySelector("#user-id");
-  const $passwordInput = document.querySelector("#password");
-  const $passwordCheckInput = document.querySelector("#password-check");
-  const $nameInput = document.querySelector("#name");
-  const $signupBtn = document.querySelector(".signup-btn");
-  const $passwordCheckBtn = document.querySelector(
-    ".password-input-set .custom-check-btn"
-  );
-  const $passwordReCheckBtn = document.querySelector(
-    ".password-check-input-set .custom-check-btn"
-  );
-  const $termsCheckbox = document.querySelector(
-    ".terms-agreement input[type='checkbox']"
-  );
+  const {
+    $idInput,
+    $passwordInput,
+    $passwordCheckInput,
+    $nameInput,
+    $businessNumberInput,
+    $storeNameInput,
+  } = getInputDoms();
+  const { $signupBtn, $passwordCheckBtn, $passwordReCheckBtn, $termsCheckbox } =
+    getButtonDoms();
   const idValue = $idInput.value.trim();
   const passwordValue = $passwordInput.value.trim();
   const passwordCheckValue = $passwordCheckInput.value.trim();
   const nameValue = $nameInput.value.trim();
   const isTermsChecked = $termsCheckbox.checked;
+  const businessNumberValue = $businessNumberInput
+    ? $businessNumberInput.value.trim()
+    : true; // 구매회원가입일 경우 true로 처리
+  const storeNameValue = $storeNameInput ? $storeNameInput.value.trim() : true; // 구매회원가입일 경우 true로 처리
 
   // 모든 조건이 만족되면 버튼 활성화
   if (
@@ -62,10 +147,12 @@ const updateSignupBtnState = () => {
     passwordCheckValue &&
     nameValue &&
     isTermsChecked &&
-    isIdChecked &&
-    isPasswordConfirmed &&
+    checkStatus.isIdChecked &&
+    checkStatus.isPasswordConfirmed &&
     $passwordCheckBtn.classList.contains("on") &&
-    $passwordReCheckBtn.classList.contains("on")
+    $passwordReCheckBtn.classList.contains("on") &&
+    businessNumberValue &&
+    storeNameValue
   ) {
     $signupBtn.disabled = false;
   } else {
@@ -75,41 +162,30 @@ const updateSignupBtnState = () => {
 
 export const validateSignup = () => {
   const $signupForm = document.querySelector(".signup-form");
-  const $idInput = document.querySelector("#user-id");
-  const $passwordInput = document.querySelector("#password");
-  const $passwordCheckInput = document.querySelector("#password-check");
-  const $businessInput = document.querySelector("#business-number");
-  const $businessValidateBtn = document.querySelector(
-    ".business-number-validate-btn"
-  );
-  const $idValidateBtn = document.querySelector(".id-validate-btn");
-  const $idErrorMessage = document.querySelector(
-    ".id-input-set .error-message"
-  );
-  const $passwordErrorMessage = document.querySelector(
-    ".password-input-set .error-message"
-  );
-  const $passwordCheckErrorMessage = document.querySelector(
-    ".password-check-input-set .error-message"
-  );
-  const $businessErrorMessage = document.querySelector(
-    ".business-number-set .error-message"
-  );
-  const $successMessage = document.querySelector(
-    ".id-input-set .success-message"
-  );
-  const $businessSuccessMessage = document.querySelector(
-    ".business-number-set .success-message"
-  );
-  const $passwordCheckBtn = document.querySelector(
-    ".password-input-set .custom-check-btn"
-  );
-  const $passwordReCheckBtn = document.querySelector(
-    ".password-check-input-set .custom-check-btn"
-  );
-  const $termsCheckbox = document.querySelector(
-    ".terms-agreement input[type='checkbox']"
-  );
+  const {
+    $idInput,
+    $passwordInput,
+    $passwordCheckInput,
+    $nameInput,
+    $businessInput,
+    $phoneNumberInput1,
+  } = getInputDoms();
+  const {
+    $idValidateBtn,
+    $businessValidateBtn,
+    $passwordCheckBtn,
+    $passwordReCheckBtn,
+    $termsCheckbox,
+  } = getButtonDoms();
+  const {
+    $idErrorMessage,
+    $passwordErrorMessage,
+    $passwordCheckErrorMessage,
+    $nameErrorMessage,
+    $businessErrorMessage,
+    $successMessage,
+    $businessSuccessMessage,
+  } = getMessageDoms();
 
   // signup-form 내 모든 input과 select 요소에 이벤트 추가
   const formElements = $signupForm.querySelectorAll("button, input, select");
@@ -126,6 +202,11 @@ export const validateSignup = () => {
     });
   });
 
+  if (!$idInput) {
+    console.error("idInput 요소를 찾을 수 없습니다.");
+    return;
+  }
+
   $idInput.addEventListener("blur", () => {
     const idValue = $idInput.value.trim();
 
@@ -140,17 +221,12 @@ export const validateSignup = () => {
     const idValue = $idInput.value.trim();
     const data = await validateUsername(idValue);
 
-    if (!idValue) {
-      showError($idErrorMessage, errorMessages.required);
-      isIdChecked = false;
-    }
-    if (!data) {
-      showError($idErrorMessage, errorMessages.invalidId, $successMessage);
-      isIdChecked = false;
-    }
-    if (data) {
+    if (data && data.error) {
+      showError($idErrorMessage, data.error);
+      checkStatus.isIdChecked = false;
+    } else if (data & !data.error) {
       hideError($idErrorMessage, $successMessage);
-      isIdChecked = true;
+      checkStatus.isIdChecked = true;
     }
   });
 
@@ -195,17 +271,53 @@ export const validateSignup = () => {
     if (!passwordValue) {
       showError($passwordErrorMessage, errorMessages.required);
       showError($passwordCheckErrorMessage, errorMessages.passwordCheckError);
-      isPasswordConfirmed = false;
+      checkStatus.isPasswordConfirmed = false;
     }
     if (passwordCheckValue !== passwordValue) {
       $passwordReCheckBtn.classList.remove("on");
       showError($passwordCheckErrorMessage, errorMessages.passwordCheckError);
-      isPasswordConfirmed = false;
+      checkStatus.isPasswordConfirmed = false;
     }
     if (passwordCheckValue === passwordValue && passwordValue) {
       $passwordReCheckBtn.classList.add("on");
       hideError($passwordCheckErrorMessage);
-      isPasswordConfirmed = true;
+      checkStatus.isPasswordConfirmed = true;
+    }
+  });
+
+  $nameInput.addEventListener("click", () => {
+    const idValue = $idInput.value.trim();
+    const passwordValue = $passwordInput.value.trim();
+    const passwordCheckValue = $passwordCheckInput.value.trim();
+
+    if (!idValue) {
+      showError($idErrorMessage, errorMessages.required);
+    }
+    if (!passwordValue) {
+      showError($passwordErrorMessage, errorMessages.required);
+    }
+    if (!passwordCheckValue) {
+      showError($passwordCheckErrorMessage, errorMessages.required);
+    }
+  });
+
+  $phoneNumberInput1.addEventListener("click", () => {
+    const idValue = $idInput.value.trim();
+    const passwordValue = $passwordInput.value.trim();
+    const passwordCheckValue = $passwordCheckInput.value.trim();
+    const nameValue = $nameInput.value.trim();
+
+    if (!idValue) {
+      showError($idErrorMessage, errorMessages.required);
+    }
+    if (!passwordValue) {
+      showError($passwordErrorMessage, errorMessages.required);
+    }
+    if (!passwordCheckValue) {
+      showError($passwordCheckErrorMessage, errorMessages.required);
+    }
+    if (!nameValue) {
+      showError($nameErrorMessage, errorMessages.required);
     }
   });
 
@@ -214,14 +326,10 @@ export const validateSignup = () => {
       const value = $businessInput.value.trim();
       const data = await validateBusinessNumber(value);
 
-      if (data) {
+      if (data && !data.error) {
         hideError($businessErrorMessage, $businessSuccessMessage);
-      } else {
-        showError(
-          $businessErrorMessage,
-          "올바르지 않은 사업자 인증번호입니다",
-          $businessSuccessMessage
-        );
+      } else if (data && data.error) {
+        showError($businessErrorMessage, data.error, $businessSuccessMessage);
       }
     });
   }
