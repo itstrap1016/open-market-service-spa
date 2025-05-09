@@ -1,75 +1,65 @@
 import { getCookie, logout } from "../services/auth";
+import { USER_TYPES, COOKIE_KEYS } from "../constants/constants";
 
+// 공통 HTML 템플릿 분리
+const getBuyerButtons = () => `
+  <a href="#" class="shopping-cart-btn">
+    <span class="img"></span>
+    <span class="txt">장바구니</span>
+  </a>
+  <div class="my-page-btn-wrapper">
+    <button class="my-page-btn">
+      <span class="img"></span>
+      <span class="txt">마이페이지</span>
+    </button>
+    <div class="list-wrapper">
+      <div class="triangle"></div>
+      <ul>
+        <li><a href="#">마이페이지</a></li>
+        <li><button class="logout-btn">로그아웃</button></li>
+      </ul>
+    </div>
+  </div>
+`;
+
+const getSellerButtons = () => `
+  ${getBuyerButtons()}
+  <a href="#" class="primary-btn seller-center-btn">
+    <span class="img"></span>
+    <span class="txt">판매자 센터</span>
+  </a>
+`;
+
+const getGuestButtons = () => `
+  <a href="#" class="shopping-cart-btn">
+    <span class="img"></span>
+    <span class="txt">장바구니</span>
+  </a>
+  <a href="/login" class="login-btn">
+    <span class="img"></span>
+    <span class="txt">로그인</span>
+  </a>
+`;
+
+// Header 컴포넌트
 const Header = () => {
-  const refreshToken = getCookie("refreshToken");
-  const loginType = getCookie("loginType");
+  const refreshToken = getCookie(COOKIE_KEYS.REFRESH_TOKEN);
+  const loginType = getCookie(COOKIE_KEYS.LOGIN_TYPE);
 
   let userButtons = "";
 
   if (refreshToken) {
-    if (loginType === "BUYER") {
-      userButtons = `
-        <a href="#" class="shopping-cart-btn">
-          <span class="img"></span>
-          <span class="txt">장바구니</span>
-        </a>
-        <div class="my-page-btn-wrapper">
-          <button class="my-page-btn">
-            <span class="img"></span>
-            <span class="txt">마이페이지</span>
-          </button>
-          <div class="list-wrapper">
-            <div class="triangle"></div>
-            <ul>
-              <li>
-                <a href="#">마이페이지</a>
-              </li>
-              <li>
-                <button class="logout-btn">로그아웃</button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      `;
-    } else if (loginType === "SELLER") {
-      userButtons = `
-        <div class="my-page-btn-wrapper">
-          <button class="my-page-btn">
-            <span class="img"></span>
-            <span class="txt">마이페이지</span>
-          </button>
-          <div class="list-wrapper">
-            <div class="triangle"></div>
-            <ul>
-              <li>
-                <a href="#">마이페이지</a>
-              </li>
-              <li>
-                <button class="logout-btn">로그아웃</button>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <a href="#" class="primary-btn seller-center-btn">
-          <span class="img"></span>
-          <span class="txt">판매자 센터</span>
-        </a>
-      `;
+    if (loginType === USER_TYPES.BUYER) {
+      userButtons = getBuyerButtons();
+    } else if (loginType === USER_TYPES.SELLER) {
+      userButtons = getSellerButtons();
     }
   } else {
-    userButtons = `
-      <a href="#" class="shopping-cart-btn">
-        <span class="img"></span>
-        <span class="txt">장바구니</span>
-      </a>
-      <a href="/login" class="login-btn">
-        <span class="img"></span>
-        <span class="txt">로그인</span>
-      </a>
-    `;
+    userButtons = getGuestButtons();
   }
 
-  return `<header id="top-header">
+  return `
+    <header id="top-header">
       <nav>
         <section class="logo-search">
           <h1 class="top-logo">
@@ -88,9 +78,11 @@ const Header = () => {
           ${userButtons}
         </section>
       </nav>
-    </header>`;
+    </header>
+  `;
 };
 
+// Header 이벤트 설정
 export const setHeaderEvent = () => {
   const $myPageBtn = document.querySelector(".my-page-btn");
   if ($myPageBtn) {
@@ -98,23 +90,27 @@ export const setHeaderEvent = () => {
       ".my-page-btn-wrapper .list-wrapper"
     );
     const $logoutBtn = document.querySelector(
-      ".my-page-btn-wrapper .list-wrapper .logout-btn"
+      ".my-page-btn-wrapper .logout-btn"
     );
+
+    // 마이페이지 버튼 클릭 이벤트
     $myPageBtn.addEventListener("click", () => {
       $myPageBtn.classList.toggle("on");
       $dropdown.classList.toggle("on");
     });
+
+    // 로그아웃 버튼 클릭 이벤트
     $logoutBtn.addEventListener("click", () => {
       logout();
       window.location.href = "/";
     });
+
     // 드롭다운 외부 클릭 감지 이벤트
     document.addEventListener("click", (event) => {
       if (
         !$dropdown.contains(event.target) &&
         !$myPageBtn.contains(event.target)
       ) {
-        // 드롭다운 외부를 클릭한 경우 드롭다운 닫기
         $myPageBtn.classList.remove("on");
         $dropdown.classList.remove("on");
       }

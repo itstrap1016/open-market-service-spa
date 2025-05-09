@@ -1,4 +1,5 @@
 import { loginFetch } from "../api/loginAPi";
+import { getElement } from "../utils/utils";
 
 const COOKIE_OPTIONS = "path=/; max-age=86400; Secure; SameSite=Strict";
 
@@ -7,8 +8,6 @@ const ERROR_MESSAGES = {
   PASSWORD_REQUIRED: "비밀번호를 입력해 주세요.",
   LOGIN_ERROR: "아이디 또는 비밀번호 올바르지 않습니다.",
 };
-
-const getElement = (selector) => document.querySelector(selector);
 
 const setCookie = (name, value, options) => {
   document.cookie = `${name}=${value}; ${options}`;

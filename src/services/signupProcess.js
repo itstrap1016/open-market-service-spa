@@ -4,6 +4,8 @@ import {
   buyerSignup,
   sellerSignup,
 } from "../api/signupApi";
+import { getElement } from "../utils/utils";
+import { USER_TYPES } from "../constants/constants";
 
 const ERROR_MESSAGES = {
   REQUIRED: "필수 정보입니다",
@@ -17,8 +19,6 @@ const checkStatus = {
   isPasswordConfirmed: false, // 비밀번호 재확인 상태
   isBusinessChecked: true,
 };
-
-const getElement = (selector) => document.querySelector(selector);
 
 const getInputDoms = () => {
   return {
@@ -469,8 +469,6 @@ export const handleSignup = async () => {
   const $activeTab = getElement(".tab-btn.active"); // 활성화된 탭
   const signupType = $activeTab ? $activeTab.dataset.signupType : null; // 탭의 데이터 속성으로 타입 확인
 
-  console.log("working", signupType);
-
   // 입력값 가져오기
   const username = $idInput.value.trim();
   const password = $passwordInput.value.trim();
@@ -493,11 +491,11 @@ export const handleSignup = async () => {
     let response;
 
     // 구매자 회원가입
-    if (signupType === "BUYER") {
+    if (signupType === USER_TYPES.BUYER) {
       response = await buyerSignup({ username, password, name, phone_number });
     }
     // 판매자 회원가입
-    else if (signupType === "SELLER") {
+    else if (signupType === USER_TYPES.SELLER) {
       // 판매자 회원가입 API 호출
       response = await sellerSignup({
         username,

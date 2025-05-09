@@ -1,3 +1,7 @@
+import { COOKIE_KEYS } from "../constants/constants";
+
+const { REFRESH_TOKEN, LOGIN_TYPE, USER_NAME } = COOKIE_KEYS;
+
 export const getCookie = (name) => {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
@@ -10,15 +14,15 @@ const deleteCookie = (name) => {
 };
 
 export const logout = () => {
-  deleteCookie("refreshToken");
-  deleteCookie("loginType");
-  deleteCookie("userName");
+  deleteCookie(REFRESH_TOKEN);
+  deleteCookie(LOGIN_TYPE);
+  deleteCookie(USER_NAME);
 };
 
 export const getSellerName = () => {
-  const refreshToken = getCookie("refreshToken");
-  const loginType = getCookie("loginType");
-  const userName = getCookie("userName");
+  const refreshToken = getCookie(REFRESH_TOKEN);
+  const loginType = getCookie(LOGIN_TYPE);
+  const userName = getCookie(USER_NAME);
 
   if (refreshToken && loginType === "SELLER") {
     return userName;

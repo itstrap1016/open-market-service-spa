@@ -8,6 +8,8 @@ export const counter = (symbol, price = 0, stock = 0) => {
   if (symbol === "+") {
     if (number < stock) {
       number += 1;
+    } else {
+      alert("재고가 더 이상 없습니다");
     }
   }
   if (symbol === "-") {

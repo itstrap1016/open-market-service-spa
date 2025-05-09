@@ -1,4 +1,4 @@
-import { URL } from "./common";
+import { URL } from "../constants/constants";
 
 export const loginFetch = async (username, password) => {
   try {
