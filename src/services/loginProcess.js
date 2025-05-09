@@ -1,16 +1,24 @@
 import { loginFetch } from "../api/loginAPi";
 
-const errorMessage = {
-  idRequired: "아이디를 입력해 주세요.",
-  passwordRequired: "비밀번호를 입력해 주세요.",
-  loginError: "아이디 또는 비밀번호 올바르지 않습니다.",
+const COOKIE_OPTIONS = "path=/; max-age=86400; Secure; SameSite=Strict";
+
+const ERROR_MESSAGES = {
+  ID_REQUIRED: "아이디를 입력해 주세요.",
+  PASSWORD_REQUIRED: "비밀번호를 입력해 주세요.",
+  LOGIN_ERROR: "아이디 또는 비밀번호 올바르지 않습니다.",
+};
+
+const getElement = (selector) => document.querySelector(selector);
+
+const setCookie = (name, value, options) => {
+  document.cookie = `${name}=${value}; ${options}`;
 };
 
 // 에러 메시지 처리 함수
 const showError = (
   $errorElement,
   message,
-  $focusElement,
+  $focusElement = null,
   $buttonElement = null
 ) => {
   $errorElement.textContent = message;
@@ -25,71 +33,94 @@ const showError = (
   }
 };
 
-// 에러 메시지 숨김 함수
-const hideError = ($errorElement, $buttonElement = null) => {
-  $errorElement.textContent = "";
-  $errorElement.classList.remove("on");
-
-  if ($buttonElement) {
-    $buttonElement.classList.remove("error");
+const validateInputs = (
+  idValue,
+  passwordValue,
+  $idInput,
+  $passwordInput,
+  $errorMessage,
+  $loginBtn
+) => {
+  if (!idValue && !passwordValue) {
+    showError($errorMessage, ERROR_MESSAGES.ID_REQUIRED, $idInput, $loginBtn);
+    return false;
   }
+
+  if (!idValue) {
+    showError($errorMessage, ERROR_MESSAGES.ID_REQUIRED, $idInput, $loginBtn);
+    return false;
+  }
+
+  if (!passwordValue) {
+    showError(
+      $errorMessage,
+      ERROR_MESSAGES.PASSWORD_REQUIRED,
+      $passwordInput,
+      $loginBtn
+    );
+    return false;
+  }
+
+  return true;
+};
+
+const handleSuccessfulLogin = (data, loginType) => {
+  // 쿠키 저장
+  setCookie("refreshToken", data.refresh, COOKIE_OPTIONS);
+  setCookie("loginType", loginType, COOKIE_OPTIONS);
+  setCookie("userName", data.user.username, COOKIE_OPTIONS);
+
+  // 페이지로 이동
+  window.location.href = "/";
 };
 
 export const loginProcess = async () => {
-  const $idInput = document.querySelector(".login-form .id-input");
-  const $passwordInput = document.querySelector(".login-form .password-input");
-  const $errorMessage = document.querySelector(".login-form .error-message");
-  const $loginBtn = document.querySelector(".login-form .login-btn");
-  const loginType = document.querySelector(".tab-btn.active").dataset.loginType;
+  const $idInput = getElement(".login-form .id-input");
+  const $passwordInput = getElement(".login-form .password-input");
+  const $errorMessage = getElement(".login-form .error-message");
+  const $loginBtn = getElement(".login-form .login-btn");
+  const loginType = getElement(".tab-btn.active")?.dataset.loginType;
 
   const idValue = $idInput.value.trim();
   const passwordValue = $passwordInput.value.trim();
-  const data = await loginFetch(idValue, passwordValue);
 
   // 입력값 검증
-  if (!idValue && !passwordValue) {
-    showError($errorMessage, errorMessage.idRequired, $idInput, $loginBtn);
-  } else if (!idValue) {
-    showError($errorMessage, errorMessage.idRequired, $idInput, $loginBtn);
-  } else if (!passwordValue) {
-    showError(
-      $errorMessage,
-      errorMessage.passwordRequired,
+  if (
+    !validateInputs(
+      idValue,
+      passwordValue,
+      $idInput,
       $passwordInput,
-      $loginBtn
-    );
-  } else if (!data) {
-    showError(
       $errorMessage,
-      errorMessage.loginError,
-      $passwordInput,
       $loginBtn
-    );
-  } else if (data && data.user["user_type"] !== loginType) {
-    showError(
-      $errorMessage,
-      errorMessage.loginError,
-      $passwordInput,
-      $loginBtn
-    );
+    )
+  ) {
+    return;
   }
 
-  if (data && data.access && data.refresh) {
-    console.log("로그인 성공");
-    console.log(data.user.username);
-    hideError($errorMessage, $loginBtn);
+  try {
+    const data = await loginFetch(idValue, passwordValue);
 
-    // Refresh Token 저장 (1일 유효)
-    document.cookie = `refreshToken=${data.refresh}; path=/; max-age=86400; Secure; SameSite=Strict`;
+    if (!data || data.user["user_type"] !== loginType) {
+      showError(
+        $errorMessage,
+        ERROR_MESSAGES.LOGIN_ERROR,
+        $passwordInput,
+        $loginBtn
+      );
+      return;
+    }
 
-    // loginType 저장 (1일 유효)
-    document.cookie = `loginType=${loginType}; path=/; max-age=86400; Secure; SameSite=Strict`;
-
-    // userId 저장 (1일 유효)
-    document.cookie = `userName=${data.user.name}; path=/; max-age=86400; Secure; SameSite=Strict`;
-
-    // 페이지로 이동
-    window.location.href = "/";
-    return;
+    if (data.access && data.refresh) {
+      handleSuccessfulLogin(data, loginType);
+    }
+  } catch (error) {
+    console.error("로그인 중 에러 발생:", error);
+    showError(
+      $errorMessage,
+      ERROR_MESSAGES.LOGIN_ERROR,
+      $passwordInput,
+      $loginBtn
+    );
   }
 };
