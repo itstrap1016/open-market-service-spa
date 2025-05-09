@@ -1,5 +1,5 @@
 import { validateSignup } from "../services/signupProcess";
-import SignUpForm from "./SignUpForm";
+import SignUpForm, { signupSubmit } from "./SignUpForm";
 
 const TabBtns = (name1 = "버튼", name2 = "버튼", type = "") => {
   let typeName1;
@@ -45,10 +45,12 @@ export const tabBtnsEvent = () => {
         $formWrapper.innerHTML = "";
         $formWrapper.insertAdjacentHTML("afterbegin", SignUpForm());
         validateSignup();
+        signupSubmit();
       } else if (type && type === "SELLER") {
         $formWrapper.innerHTML = "";
         $formWrapper.insertAdjacentHTML("afterbegin", SignUpForm("SELLER"));
         validateSignup();
+        signupSubmit();
       }
     });
   });

@@ -270,9 +270,9 @@ export const validateSignup = () => {
     $nameErrorMessage,
     $phoneErrorMessage,
     $businessErrorMessage,
-    $storeErrorMessage,
     $successMessage,
     $businessSuccessMessage,
+    $storeErrorMessage,
   } = getMessageDoms();
 
   setSignupBtnState();
@@ -326,6 +326,10 @@ export const validateSignup = () => {
     );
   });
 
+  $nameInput.addEventListener("blur", () => {
+    validateField($nameInput, $nameErrorMessage, ERROR_MESSAGES.REQUIRED);
+  });
+
   $phoneNumberInput1.addEventListener("click", () => {
     validateField($idInput, $idErrorMessage, ERROR_MESSAGES.REQUIRED);
     validateField(
@@ -341,7 +345,33 @@ export const validateSignup = () => {
     validateField($nameInput, $nameErrorMessage, ERROR_MESSAGES.REQUIRED);
   });
 
-  if ($businessNumberInput) {
+  $phoneNumberInput1.addEventListener("blur", () => {
+    validateField(
+      $phoneNumberInput1,
+      $phoneErrorMessage,
+      ERROR_MESSAGES.REQUIRED
+    );
+    validateField(
+      $phoneNumberInput2,
+      $phoneErrorMessage,
+      ERROR_MESSAGES.REQUIRED
+    );
+  });
+
+  $phoneNumberInput2.addEventListener("blur", () => {
+    validateField(
+      $phoneNumberInput1,
+      $phoneErrorMessage,
+      ERROR_MESSAGES.REQUIRED
+    );
+    validateField(
+      $phoneNumberInput2,
+      $phoneErrorMessage,
+      ERROR_MESSAGES.REQUIRED
+    );
+  });
+
+  if ($businessNumberInput && $storeNameInput) {
     $businessValidateBtn.addEventListener("click", async () => {
       await validateBusinessNumber(
         $businessNumberInput,
@@ -374,9 +404,15 @@ export const validateSignup = () => {
         ERROR_MESSAGES.REQUIRED
       );
     });
-  }
 
-  if ($storeNameInput) {
+    $businessNumberInput.addEventListener("blur", () => {
+      validateField(
+        $businessNumberInput,
+        $businessErrorMessage,
+        ERROR_MESSAGES.REQUIRED
+      );
+    });
+
     $storeNameInput.addEventListener("click", () => {
       validateField($idInput, $idErrorMessage, ERROR_MESSAGES.REQUIRED);
       validateField(
@@ -406,6 +442,14 @@ export const validateSignup = () => {
         ERROR_MESSAGES.REQUIRED
       );
     });
+
+    $storeNameInput.addEventListener("blur", () => {
+      validateField(
+        $storeNameInput,
+        $storeErrorMessage,
+        ERROR_MESSAGES.REQUIRED
+      );
+    });
   }
 };
 
@@ -422,8 +466,10 @@ export const handleSignup = async () => {
     $phoneNumberSelect,
   } = getInputDoms();
 
-  const $activeTab = document.querySelector(".tab-btn.active"); // 활성화된 탭
+  const $activeTab = getElement(".tab-btn.active"); // 활성화된 탭
   const signupType = $activeTab ? $activeTab.dataset.signupType : null; // 탭의 데이터 속성으로 타입 확인
+
+  console.log("working", signupType);
 
   // 입력값 가져오기
   const username = $idInput.value.trim();
