@@ -5,7 +5,7 @@ import {
   sellerSignup,
 } from "../api/signupApi";
 import { getElement } from "../utils/utils";
-import { USER_TYPES } from "../constants/constants";
+import { USER_TYPES, ROUTES } from "../constants/constants";
 
 const ERROR_MESSAGES = {
   REQUIRED: "필수 정보입니다",
@@ -466,8 +466,8 @@ export const handleSignup = async () => {
     $phoneNumberSelect,
   } = getInputDoms();
 
-  const $activeTab = getElement(".tab-btn.active"); // 활성화된 탭
-  const signupType = $activeTab ? $activeTab.dataset.signupType : null; // 탭의 데이터 속성으로 타입 확인
+  const $activeTab = getElement(".tab-btn.active");
+  const signupType = $activeTab ? $activeTab.dataset.signupType : null;
 
   // 입력값 가져오기
   const username = $idInput.value.trim();
@@ -496,7 +496,6 @@ export const handleSignup = async () => {
     }
     // 판매자 회원가입
     else if (signupType === USER_TYPES.SELLER) {
-      // 판매자 회원가입 API 호출
       response = await sellerSignup({
         username,
         password,
@@ -506,12 +505,17 @@ export const handleSignup = async () => {
         store_name,
       });
     }
+
     // 성공 처리
-    if (response) {
+    if (response.success) {
       alert("회원가입이 성공적으로 완료되었습니다!");
-      window.location.href = "/login"; // 회원가입 후 로그인 페이지로 이동
+      window.location.href = ROUTES.LOGIN; // 회원가입 후 로그인 페이지로 이동
     } else {
-      alert("회원가입에 실패했습니다. 다시 시도해 주세요.");
+      // 실패 처리: 에러 메시지 출력
+      const errorMessages = Object.entries(response.errorData)
+        .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
+        .join("\n"); // 에러 메시지를 필드별로 줄바꿈 처리
+      alert(`회원가입에 실패했습니다:\n${errorMessages}`);
     }
   } catch (error) {
     console.error("회원가입 중 에러 발생:", error);

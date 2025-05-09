@@ -1,5 +1,5 @@
 import { getCookie, logout } from "../services/auth";
-import { USER_TYPES, COOKIE_KEYS } from "../constants/constants";
+import { USER_TYPES, COOKIE_KEYS, ROUTES } from "../constants/constants";
 import { getElement } from "../utils/utils";
 
 // 공통 HTML 템플릿 분리
@@ -99,7 +99,7 @@ export const setHeaderEvent = () => {
     // 로그아웃 버튼 클릭 이벤트
     $logoutBtn.addEventListener("click", () => {
       logout();
-      window.location.href = "/";
+      window.location.href = ROUTES.HOME;
     });
 
     // 드롭다운 외부 클릭 감지 이벤트

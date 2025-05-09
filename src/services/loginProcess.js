@@ -1,5 +1,6 @@
 import { loginFetch } from "../api/loginAPi";
 import { getElement } from "../utils/utils";
+import { ROUTES } from "../constants/constants";
 
 const COOKIE_OPTIONS = "path=/; max-age=86400; Secure; SameSite=Strict";
 
@@ -70,7 +71,7 @@ const handleSuccessfulLogin = (data, loginType) => {
   setCookie("userName", data.user.name, COOKIE_OPTIONS);
 
   // 페이지로 이동
-  window.location.href = "/";
+  window.location.href = ROUTES.HOME;
 };
 
 export const loginProcess = async () => {

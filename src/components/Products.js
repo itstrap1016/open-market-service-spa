@@ -1,6 +1,5 @@
 import { getProducts, getProductsBySeller } from "../api/productApi.js";
 import { getSellerName } from "../services/auth.js";
-import { getElement } from "../utils/utils.js";
 
 const createProductHTML = (data) => `
   <li>
@@ -23,9 +22,9 @@ const appendProductsToList = ($ul, products) => {
 
 const createProducts = async () => {
   const sellerName = getSellerName();
-  const $section = getElement("section");
-  const $h2 = getElement("h2");
-  const $ul = getElement("ul");
+  const $section = document.createElement("section");
+  const $h2 = document.createElement("h2");
+  const $ul = document.createElement("ul");
 
   $h2.textContent = "제품 리스트";
   $h2.classList.add("sr-only");

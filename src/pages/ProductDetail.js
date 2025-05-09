@@ -1,4 +1,4 @@
-import Header, { setHeaderEvent } from "../components/Header";
+import Header, { setHeaderEvent } from "../components/header.js";
 import Footer from "../components/Footer";
 import Product, { setProductEvent } from "../components/Product";
 import Modal, { setModalEvents } from "../components/Modal";

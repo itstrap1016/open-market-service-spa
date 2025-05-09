@@ -40,15 +40,17 @@ const handleTabClick = ($button, $formWrapper) => {
   $button.classList.add("active");
 
   // 폼 업데이트
-  $formWrapper.innerHTML = "";
-  $formWrapper.insertAdjacentHTML(
-    "afterbegin",
-    SignUpForm(type === USER_TYPES.SELLER ? USER_TYPES.SELLER : null)
-  );
+  if ($formWrapper) {
+    $formWrapper.innerHTML = "";
+    $formWrapper.insertAdjacentHTML(
+      "afterbegin",
+      SignUpForm(type === USER_TYPES.SELLER ? USER_TYPES.SELLER : null)
+    );
 
-  // 폼 검증 및 이벤트 등록
-  validateSignup();
-  signupSubmit();
+    // 폼 검증 및 이벤트 등록
+    validateSignup();
+    signupSubmit();
+  }
 };
 
 // 버튼 이벤트 리스너 등록
