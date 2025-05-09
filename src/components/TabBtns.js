@@ -1,6 +1,7 @@
 import { validateSignup } from "../services/signupProcess";
 import SignUpForm, { signupSubmit } from "./SignUpForm";
 import { USER_TYPES } from "../constants/constants";
+import { getElement } from "../utils/utils";
 
 // 타입 결정 함수
 const getTypeName = (name) => {
@@ -27,8 +28,8 @@ const TabBtns = (name1 = "버튼", name2 = "버튼", type = "") => {
 };
 
 // 탭 클릭 처리 함수
-const handleTabClick = (button, $formWrapper) => {
-  const type = button.dataset.signupType;
+const handleTabClick = ($button, $formWrapper) => {
+  const type = $button.dataset.signupType;
 
   // 모든 버튼에서 active 클래스 제거
   document
@@ -36,7 +37,7 @@ const handleTabClick = (button, $formWrapper) => {
     .forEach((btn) => btn.classList.remove("active"));
 
   // 클릭된 버튼에 active 클래스 추가
-  button.classList.add("active");
+  $button.classList.add("active");
 
   // 폼 업데이트
   $formWrapper.innerHTML = "";
@@ -52,13 +53,11 @@ const handleTabClick = (button, $formWrapper) => {
 
 // 버튼 이벤트 리스너 등록
 export const tabBtnsEvent = () => {
-  const $formWrapper = document.querySelector(
-    ".common-form-wrap > .signup-form-wrapper"
-  );
+  const $formWrapper = getElement(".common-form-wrap > .signup-form-wrapper");
 
-  document.querySelectorAll(".tab-btn").forEach((button) => {
-    button.addEventListener("click", () =>
-      handleTabClick(button, $formWrapper)
+  document.querySelectorAll(".tab-btn").forEach(($button) => {
+    $button.addEventListener("click", () =>
+      handleTabClick($button, $formWrapper)
     );
   });
 };

@@ -1,10 +1,10 @@
+import { getElement } from "../utils/utils";
+
 export const counter = (symbol, price = 0, stock = 0) => {
-  const $number = document.querySelector(".counter .number");
+  const $number = getElement(".counter .number");
   let number = Number($number.textContent);
-  const $totalNumber = document.querySelector(
-    ".total-price .total-amount span"
-  );
-  const $totalPrice = document.querySelector(".total-price .price");
+  const $totalNumber = getElement(".total-price .total-amount span");
+  const $totalPrice = getElement(".total-price .price");
   if (symbol === "+") {
     if (number < stock) {
       number += 1;

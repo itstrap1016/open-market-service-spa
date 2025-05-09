@@ -1,3 +1,5 @@
+import { getElement } from "../utils/utils";
+
 const Modal = () => {
   return `
       <dialog class="login-modal">
@@ -15,9 +17,9 @@ const Modal = () => {
 };
 
 export const setModalEvents = () => {
-  const $modal = document.querySelector(".login-modal");
-  const $closeBtn = document.querySelector(".login-modal .close-btn");
-  const $noBtn = document.querySelector(".login-modal .secondary-btn");
+  const $modal = getElement(".login-modal");
+  const $closeBtn = getElement(".login-modal .close-btn");
+  const $noBtn = getElement(".login-modal .secondary-btn");
 
   if ($closeBtn) {
     $closeBtn.addEventListener("click", () => {

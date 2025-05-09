@@ -1,5 +1,6 @@
 import ErrorMessage from "./ErrorMessage";
 import { loginProcess } from "../services/loginProcess";
+import { getElement } from "../utils/utils";
 
 const LoginForm = () => {
   return `
@@ -13,8 +14,8 @@ const LoginForm = () => {
 };
 
 export const loginSubmit = () => {
-  const $form = document.querySelector(".login-form");
-  const $button = document.querySelector(".login-form .login-btn");
+  const $form = getElement(".login-form");
+  const $button = getElement(".login-form .login-btn");
   $form.addEventListener("submit", () => {
     loginProcess();
   });

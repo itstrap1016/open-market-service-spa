@@ -2,6 +2,7 @@ import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
 import { handleSignup } from "../services/signupProcess";
 import { USER_TYPES } from "../constants/constants";
+import { getElement } from "../utils/utils";
 
 const createSellerFields = () => `
   <fieldset class="business-number-set">
@@ -93,9 +94,14 @@ const SignUpForm = (type = null) => {
 };
 
 export const signupSubmit = () => {
-  const $form = document.querySelector(".signup-form");
+  const $form = getElement(".signup-form");
+  const $btn = getElement(".signup-btn");
 
   $form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    await handleSignup();
+  });
+  $btn.addEventListener("click", async (e) => {
     e.preventDefault();
     await handleSignup();
   });

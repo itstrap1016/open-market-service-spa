@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { getSellerName } from "../services/auth";
+import { getElement } from "../utils/utils";
 
 const SwiperComponet = () => {
   return `
@@ -21,7 +22,7 @@ const SwiperComponet = () => {
 };
 
 export const setSwiper = () => {
-  const $swiper = document.querySelector(".swiper");
+  const $swiper = getElement(".swiper");
   const sellerName = getSellerName();
 
   if (sellerName) {

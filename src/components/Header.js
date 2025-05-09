@@ -1,5 +1,6 @@
 import { getCookie, logout } from "../services/auth";
 import { USER_TYPES, COOKIE_KEYS } from "../constants/constants";
+import { getElement } from "../utils/utils";
 
 // 공통 HTML 템플릿 분리
 const getBuyerButtons = () => `
@@ -84,14 +85,10 @@ const Header = () => {
 
 // Header 이벤트 설정
 export const setHeaderEvent = () => {
-  const $myPageBtn = document.querySelector(".my-page-btn");
+  const $myPageBtn = getElement(".my-page-btn");
   if ($myPageBtn) {
-    const $dropdown = document.querySelector(
-      ".my-page-btn-wrapper .list-wrapper"
-    );
-    const $logoutBtn = document.querySelector(
-      ".my-page-btn-wrapper .logout-btn"
-    );
+    const $dropdown = getElement(".my-page-btn-wrapper .list-wrapper");
+    const $logoutBtn = getElement(".my-page-btn-wrapper .logout-btn");
 
     // 마이페이지 버튼 클릭 이벤트
     $myPageBtn.addEventListener("click", () => {

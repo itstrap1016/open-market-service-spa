@@ -1,4 +1,4 @@
-import Header, { setHeaderEvent } from "../components/Header.js";
+import Header, { setHeaderEvent } from "../components/header.js";
 import SwiperComponent, { setSwiper } from "../components/SwiperComponent.js";
 import createProducts from "../components/Products.js";
 import Footer from "../components/Footer.js";
