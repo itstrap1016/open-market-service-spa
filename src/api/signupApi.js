@@ -1,6 +1,6 @@
 import { URL } from "./common";
 
-export const validateUsername = async (username) => {
+export const checkId = async (username) => {
   try {
     const response = await fetch(`${URL}accounts/validate-username/`, {
       method: "POST",
@@ -23,7 +23,7 @@ export const validateUsername = async (username) => {
   }
 };
 
-export const validateBusinessNumber = async (company_registration_number) => {
+export const checkBusinessNumber = async (company_registration_number) => {
   try {
     const response = await fetch(
       `${URL}accounts/seller/validate-registration-number/`,
