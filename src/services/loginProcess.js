@@ -68,7 +68,7 @@ const handleSuccessfulLogin = (data, loginType) => {
   // 쿠키 저장
   setCookie("refreshToken", data.refresh, COOKIE_OPTIONS);
   setCookie("loginType", loginType, COOKIE_OPTIONS);
-  setCookie("userName", data.user.username, COOKIE_OPTIONS);
+  setCookie("userName", data.user.name, COOKIE_OPTIONS);
 
   // 페이지로 이동
   window.location.href = "/";
