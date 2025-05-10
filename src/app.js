@@ -39,6 +39,7 @@ export const router = async () => {
 
   // 로그인 경로 처리
   if (path === ROUTES.LOGIN && handleLoginRedirect()) return;
+  if (path === ROUTES.SIGNUP && handleLoginRedirect()) return;
 
   // 동적 경로 처리
   if (await handleDynamicRoute(path)) return;

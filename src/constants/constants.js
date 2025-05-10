@@ -4,6 +4,7 @@ export const ROUTES = {
   HOME: "/",
   LOGIN: "/login",
   PRODUCT: "/product/:id",
+  SIGNUP: "/signup",
   NOT_FOUND: "404",
 };
 

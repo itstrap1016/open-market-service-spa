@@ -1,178 +1,65 @@
-- 해당 repo는 sample repo입니다. 실제 사용되고 있는 repo가 아닙니다.
-- 해당 repo 내용으로 작성한 [sample repo](https://github.com/paullabkorea/github_blog) 링크입니다. 이 프로젝트는 실제 위니브에서 진행중인 프로젝트의 origin입니다. 프로젝트는 다른 repo에서 진행중이지만 참고하실만 합니다.
-- 블러 처리되어 있는 이미지가 일부 있을 수 있습니다.
-- 모든 템플릿이 동일한 템플릿이 되지 않도록 적절한 수정이 필요합니다.
-- GitHub Project나 GitHub Wiki를 사용하시는 것도 좋습니다.
-- 스웨거와 같은 서비스를 이용할 경우 캡쳐된 이미지가 있어야 합니다.
-- Notion으로 WBS 등을 작성하였으면 노션 링크가 아니라 내용이나 캡쳐 이미지가 들어가도록 해주세요.(URL 이동 최소화)
-- ChatGPT에게 머메이드로 요구하세요. 대부분 빠르게 만족할만한 퀄리티를 얻을 수 있습니다.
-
-# 지역기반 스터디 그룹 커뮤니티 서비스
+# 오픈 마켓 서비스
 
 ## 1. 목표와 기능
 
 ### 1.1 목표
 
-- 지역 청년들의 SW 교육 기회 확대 플랫폼
-- 청년의 Benefit이 있는 플랫폼
-  - 책 공동 출판
-  - 오픈소스 프로젝트
-  - 상업 공동 프로젝트
-- 취업까지 연결될 수 있는 플랫폼
-- 기존 영상 강의 플랫폼과 역할이 겹치지 않는 플랫폼, 상호 보완적인 플랫폼
+- 사용자가 상품을 검색하고 구매할 수 있는 전자상거래 플랫폼
+- 판매자는 상품을 등록하고 관리할 수 있으며, 구매자는 상품을 검색하고 구매할 수 있음.
+- 간단하고 직관적인 UI/UX 제공.
 
 ### 1.2 기능
 
-- 자사 콘텐츠와 연계가 가능한 플랫폼
-- 이력 관리가 가능한 플랫폼(Github Open API 활용)
-- 역량별 레벨 관리 시스템 제공(Github Open API 활용, 스터디 그룹 결과물)
-- SW 관련 해커톤이나 워크숍, 세미나, 밋업 등이 자유롭게 공유될 수 있는 플랫폼
-- 타 플랫폼에서도 활용할 수 있는 API Set 제공
-- 각 언어별 로그인 없이 실습이 바로 가능한 환경(google colab의 경우 학생들 이름으로 가입되어 있으면 작동하지 않음)
-
-### 1.3 팀 구성
-
-- 실제 사진을 업로드 하시길 권합니다.
-<table>
-	<tr>
-		<th>이호준</th>
-		<th>이호준</th>
-		<th>이호준</th>
-	</tr>
- 	<tr>
-		<td><img src="my.jpg" width="100%"></td>
-		<td><img src="my.jpg" width="100%"></td>
-		<td><img src="my.jpg" width="100%"></td>
-	</tr>
-</table>
+- **회원가입 및 로그인**:
+  - 구매자와 판매자 유형별 회원가입.
+  - 로그인 상태 확인 및 리다이렉트 처리.
+- **상세 페이지**:
+  - 상품 상세 정보 제공.
+- **판매자 기능**:
+  - 사업자 등록번호 인증 및 스토어 이름 설정.
 
 ## 2. 개발 환경 및 배포 URL
 
 ### 2.1 개발 환경
 
-- Web Framework
-  - Django 3.x (Python 3.8)
-- 서비스 배포 환경
-  - Amazon Lightsail
-    ...중략...
+### 2.1 프론트엔드
 
-### 2.2 배포 URL
+- **HTML**, **CSS**, **JavaScript** (SPA로 구현)
+- **Swiper.js**: 슬라이더 컴포넌트 구현.
+- **Vercel**: 정적 파일 배포.
 
-- https://www.studyin.co.kr/
-- 테스트용 계정
+### 2.2 백엔드
+
+- RESTful API와 통신 (백엔드 API는 별도로 제공됨).
+
+### 2.3 배포
+
+- **Vercel**: 정적 파일 배포 및 클라이언트 측 라우팅 지원.
+
+### 2.4 배포 URL
+
+- https://open-market-service-spa-23bp.vercel.app/
+- 테스트용 계정 - 판매자
   ```
-  id : test@test.test
-  pw : test11!!
+  id : buyer1
+  pw : weniv1234
+  ```
+- 테스트용 계정 - 구매자
+  ```
+  id : seller1
+  pw : weniv1234
   ```
 
-### 2.3 URL 구조(모놀리식)
+### 2.5 URL 구조(모놀리식)
 
-- main
+-
 
-| App  | URL       | Views Function | HTML File Name  | Note     |
-| ---- | --------- | -------------- | --------------- | -------- |
-| main | '/'       | home           | main/home.html  | 홈화면   |
-| main | '/about/' | about          | main/about.html | 소개화면 |
-
-- accounts
-
-| App      | URL         | Views Function | HTML File Name         | Note                                           |
-| -------- | ----------- | -------------- | ---------------------- | ---------------------------------------------- |
-| accounts | 'register/' | register       | accounts/register.html | 회원가입                                       |
-| accounts | 'login/'    | login          | accounts/login.html    | 로그인                                         |
-| accounts | 'logout/'   | logout         | accounts/logout.html   | 로그아웃                                       |
-| accounts | 'profile/'  | profile        | accounts/profile.html  | 비밀번호변경기능 / <br>프로필 수정/ 닉네임추가 |
-
-- boardapp
-
-| App   | URL                                                   | Views Function | HTML File Name                            | Note            |
-| ----- | ----------------------------------------------------- | -------------- | ----------------------------------------- | --------------- |
-| board | 'board/'                                              | board          | boardapp/post_list.html                   | 게시판 목록     |
-| board | 'board/<int:pk>/'                                     | post_detail    | boardapp/post_detail.html                 | 게시글 상세보기 |
-| board | 'board/write/'                                        | post_write     | boardapp/post_write.html                  | 게시글 작성     |
-| board | 'board/edit/<int:pk>/'                                | post_edit      | boardapp/post_edit.html                   | 게시글 수정     |
-| board | 'board/delete/<int:pk>/'                              | post_delete    | boardapp/post_delete.html                 | 게시글 삭제     |
-| board | 'board/<int:pk>/comment/'                             | comment_create | boardapp/comment_form.html                | 댓글 작성       |
-| board | 'board/<int:pk>/comment/<br><int:comment_pk>/edit/'   | comment_edit   | boardapp/comment_form.html                | 댓글 수정       |
-| board | 'board/<int:pk>/comment/<br><int:comment_pk>/delete/' | comment_delete | boardapp/comment\_<br>confirm_delete.html | 댓글 삭제       |
-
-- blog
-
-| App  | URL                                               | Views Function | HTML File Name                        | Note                                                |
-| ---- | ------------------------------------------------- | -------------- | ------------------------------------- | --------------------------------------------------- |
-| blog | 'blog/'                                           | blog           | blog/blog.html                        | 갤러리형 게시판 메인 화면                           |
-| blog | 'blog/<int:pk>/'                                  | post           | blog/post.html                        | 상세 포스트 화면                                    |
-| blog | 'blog/write/'                                     | write          | blog/write.html                       | 카테고리 지정, 사진업로드,<br> 게시글 조회수 반영   |
-| blog | 'blog/edit/<int:pk>/'                             | edit           | blog/edit.html                        | 게시물목록보기                                      |
-| blog | 'blog/delete/<int:pk>/'                           | delete         | blog/delete.html                      | 삭제 화면                                           |
-| blog | 'blog/search/'                                    | search         | blog/search.html                      | 주제와 카테고리에 따라 검색,<br> 시간순에 따라 정렬 |
-| blog | 'post/<int:post_pk>/comment/'                     | comment_new    | blog/comment_form.html                | 댓글 입력 폼                                        |
-| blog | 'post/<int:post_pk>/comment/<br><int:parent_pk>/' | reply_new      | blog/comment_form.html                | 대댓글 폼                                           |
-| blog | 'post/<int:pk>/like/'                             | like_post      | blog/post.html                        | 좋아요를 누르면 blog/post로 Redirect됨              |
-| blog | 'comment/<int:pk>/update/'                        | comment_update | blog/comment_form.html                | 댓글 업데이터 경로                                  |
-| blog | 'comment/<int:pk>/delete/'                        | comment_delete | blog/comment\_<br>confirm_delete.html | 댓글 삭제 폼                                        |
-
-### 2.4 URL 구조(마이크로식)
-
-- views의 이름과 views에 믹스인 한 것이 있으면 함께 언급하면 좋습니다.
-
-| app:accounts   | HTTP Method | 설명             | 로그인 권한 필요 | 작성자 권한 필요 |
-| :------------- | :---------- | :--------------- | :--------------: | :--------------: |
-| signup/        | POST        | 회원가입         |                  |                  |
-| login/         | POST        | 로그인           |                  |                  |
-| logout/        | POST        | 로그아웃         |        ✅        |                  |
-| \<int:pk\>/    | GET         | 프로필 조회      |        ✅        |                  |
-| \<int:pk\>/    | PUT         | 프로필 수정      |        ✅        |        ✅        |
-| \<int:pk\>/    | DELETE      | 회원 탈퇴        |        ✅        |        ✅        |
-| status/        | GET         | 로그인 상태 확인 |                  |                  |
-| token/refresh/ | POST        | 만료 토큰 재발급 |                  |                  |
-
-<br>
-
-| app:blog | HTTP Method | 설명          | 로그인 권한 필요 | 작성자 권한 필요 |
-| :------- | :---------- | :------------ | :--------------: | :--------------: |
-| list/    | GET         | 게시판 리스트 |        ✅        |                  |
-| create/  | POST        | 게시물 작성   |        ✅        |                  |
-
-<br>
-
-| app:interview | HTTP Method | 설명           | 로그인 권한 필요 | 작성자 권한 필요 |
-| :------------ | :---------- | :------------- | :--------------: | :--------------: |
-| question/     | POST        | 면접 문제 요청 |        ✅        |                  |
-| grading/      | POST        | 면접 문제 채점 |        ✅        |                  |
-| total/        | POST        | 면접 점수 통계 |        ✅        |                  |
-
-<br>
-
-- 아래와 같이 표현할 수도 있습니다.
-
-| App  | Method | URL                                            | Views Class    | Note                                 |
-| ---- | ------ | ---------------------------------------------- | -------------- | ------------------------------------ |
-| blog | GET    | '/blog/posts/'                                 | PostViewSet    | 게시글 목록                          |
-| blog | POST   | '/blog/posts/'                                 | PostViewSet    | 게시글 생성 / ChatGPT API 요청       |
-| blog | GET    | '/blog/posts/{post_id}/'                       | PostViewSet    | 게시글 상세보기 / 게시글 조회수 증가 |
-| blog | PATCH  | '/blog/posts/{post_id}/'                       | PostViewSet    | 게시글 수정                          |
-| blog | DELETE | '/blog/posts/{post_id}/'                       | PostViewSet    | 게시글 삭제                          |
-| blog | POST   | '/blog/posts/{post_id}/like/'                  | PostViewSet    | 게시글 좋아요 증가                   |
-| blog | GET    | '/blog/posts/{post_id}/comments/'              | CommentViewSet | 게시물의 댓글 목록                   |
-| blog | POST   | '/blog/posts/{post_id}/comments/'              | CommentViewSet | 게시물의 댓글 생성                   |
-| blog | GET    | '/blog/posts/{post_id}/comments/{comment_id}/' | CommentViewSet | 게시물의 특정 댓글 보기              |
-| blog | PATCH  | '/blog/posts/{post_id}/comments/{comment_id}/' | CommentViewSet | 게시물의 특정 댓글 수정              |
-| blog | DELETE | '/blog/posts/{post_id}/comments/{comment_id}/' | CommentViewSet | 게시물의 특정 댓글 삭제              |
-
-<br>
-
-| URL                     | 페이지 설명                                   |       GET        |  POST  | PUT |   DELETE   |    로그인 권한     |   작성자 권한   |
-| ----------------------- | --------------------------------------------- | :--------------: | :----: | :-: | :--------: | :----------------: | :-------------: |
-| /accounts/login         | 로그인                                        |                  |   ✔️   |     |            |                    |                 |
-| /accounts/logout        | 로그아웃                                      |                  |   ✔️   |     |            |                    |                 |
-| /accounts/signup        | 회원가입                                      |                  |   ✔️   |     |            |                    |                 |
-| /accounts/profile       | 프로필 <br> 프로필 수정 <br> 회원 탈퇴        | ✔️<br> <br> <br> |        | ✔️  | <br><br>✔️ | ✔️ <br> ✔️ <br> ✔️ | <br> ✔️ <br> ✔️ |
-| /accounts/token/refresh | 토큰갱신                                      |                  |   ✔️   |     |            |                    |                 |
-| /board                  | 게시글 목록 <br> 게시글 생성                  |    ✔️<br><br>    | <br>✔️ |     |            |      <br> ✔️       |                 |
-| /board/{postid}         | 게시글 상세 <br> 게시글 수정 <br> 게시글 삭제 |  ✔️<br><br><br>  |        | ✔️  | <br><br>✔️ |  <br> ✔️ <br> ✔️   | <br> ✔️ <br> ✔️ |
-
-<br>
+| App  | URL            | Note          |
+| ---- | -------------- | ------------- |
+| main | '/'            | 홈화면        |
+| main | '/login'       | 로그인 화면   |
+| main | '/signup'      | 회원가입 화면 |
+| main | '/product/:id' | 제품상세 화면 |
 
 ## 3. 요구사항 명세와 기능 명세
 
@@ -202,111 +89,7 @@
 
 ### 4.1 프로젝트 구조
 
-- 해당 프로젝트에서 폴더 트리 잘 다듬어 사용하세요. 필요하다면 주석을 달아주세요.
-  📦tutorial  
-   ┣ 📂accounts  
-   ┃ ┣ 📂migrations  
-   ┃ ┣ 📂**pycache**  
-   ┃ ┣ 📜admin.py  
-   ┃ ┣ 📜apps.py  
-   ┃ ┣ 📜forms.py  
-   ┃ ┣ 📜models.py  
-   ┃ ┣ 📜tests.py  
-   ┃ ┣ 📜urls.py  
-   ┃ ┣ 📜views.py  
-   ┃ ┗ 📜**init**.py  
-   ┣ 📂blog  
-   ┃ ┣ 📂migrations  
-   ┃ ┣ 📂**pycache**  
-   ┃ ┣ 📜admin.py  
-   ┃ ┣ 📜apps.py  
-   ┃ ┣ 📜forms.py  
-   ┃ ┣ 📜models.py  
-   ┃ ┣ 📜tests.py  
-   ┃ ┣ 📜urls.py  
-   ┃ ┣ 📜views.py  
-   ┃ ┗ 📜**init**.py  
-   ┣ 📂board  
-   ┃ ┣ 📂migrations  
-   ┃ ┣ 📂**pycache**  
-   ┃ ┣ 📜admin.py  
-   ┃ ┣ 📜apps.py  
-   ┃ ┣ 📜forms.py  
-   ┃ ┣ 📜models.py  
-   ┃ ┣ 📜tests.py  
-   ┃ ┣ 📜urls.py  
-   ┃ ┣ 📜views.py  
-   ┃ ┗ 📜**init**.py  
-   ┣ 📂main  
-   ┃ ┣ 📂migrations  
-   ┃ ┣ 📂**pycache**  
-   ┃ ┣ 📜admin.py  
-   ┃ ┣ 📜apps.py  
-   ┃ ┣ 📜models.py  
-   ┃ ┣ 📜tests.py  
-   ┃ ┣ 📜urls.py  
-   ┃ ┣ 📜views.py  
-   ┃ ┗ 📜**init**.py  
-   ┣ 📂media  
-   ┃ ┣ 📂accounts  
-   ┃ ┣ 📂blog  
-   ┃ ┗ 📂board  
-   ┣ 📂static  
-   ┃ ┣ 📂assets  
-   ┃ ┃ ┣ 📂css  
-   ┃ ┃ ┃ ┣ 📂apps  
-   ┃ ┃ ┃ ┣ 📂authentication  
-   ┃ ┃ ┃ ┣ 📂components  
-   ┃ ┃ ┃ ┣ 📂dashboard  
-   ┃ ┃ ┃ ┣ 📂elements  
-   ┃ ┃ ┃ ┣ 📂forms  
-   ┃ ┃ ┃ ┣ 📂pages  
-   ┃ ┃ ┃ ┣ 📂tables  
-   ┃ ┃ ┃ ┣ 📂users  
-   ┃ ┃ ┣ 📂images  
-   ┃ ┃ ┃ ┣ 📂mockup_image  
-   ┃ ┃ ┣ 📂img  
-   ┃ ┃ ┗ 📂js  
-   ┃ ┣ 📂bootstrap  
-   ┃ ┃ ┣ 📂css  
-   ┃ ┃ ┗ 📂js  
-   ┃ ┗ 📂plugins  
-   ┣ 📂tech_blog  
-   ┃ ┣ 📂**pycache**  
-   ┃ ┣ 📜.env  
-   ┃ ┣ 📜asgi.py  
-   ┃ ┣ 📜settings.py  
-   ┃ ┣ 📜urls.py  
-   ┃ ┣ 📜wsgi.py  
-   ┃ ┗ 📜**init**.py  
-   ┣ 📂templates  
-   ┃ ┣ 📂accounts  
-   ┃ ┃ ┣ 📜login.html  
-   ┃ ┃ ┣ 📜password_change.html  
-   ┃ ┃ ┣ 📜profile.html  
-   ┃ ┃ ┣ 📜profile_edit.html  
-   ┃ ┃ ┣ 📜signup.html  
-   ┃ ┃ ┗ 📜user_list.html  
-   ┃ ┣ 📂blog  
-   ┃ ┃ ┣ 📜blog_base.html  
-   ┃ ┃ ┣ 📜post_detail.html  
-   ┃ ┃ ┣ 📜post_form.html  
-   ┃ ┃ ┣ 📜post_list.html  
-   ┃ ┃ ┗ 📜post_not_found.html  
-   ┃ ┣ 📂board  
-   ┃ ┃ ┣ 📜board_base.html  
-   ┃ ┃ ┣ 📜board_post_detail.html  
-   ┃ ┃ ┣ 📜board_post_form.html  
-   ┃ ┃ ┗ 📜board_post_list.html  
-   ┃ ┣ 📂main  
-   ┃ ┃ ┗ 📜index.html  
-   ┃ ┣ 📜404.html  
-   ┃ ┗ 📜base.html  
-   ┣ 📜CONVENTION.md  
-   ┣ 📜db.sqlite3  
-   ┣ 📜manage.py  
-   ┣ 📜README.md  
-   ┗ 📜requirements.txt
+- 📦 open-market-service ├── 📂 src │ ├── 📂 components # UI 컴포넌트 (Header, Footer, Swiper 등) │ ├── 📂 pages # 각 페이지 (Home, Login, SignUp 등) │ ├── 📂 services # 비즈니스 로직 (회원가입, 로그인 등) │ ├── 📂 api # API 호출 관련 코드 │ ├── 📂 utils # 유틸리티 함수 │ ├── 📂 css # 스타일 파일 │ └── 📜 app.js # 라우팅 및 초기화 로직 ├── 📂 public # 정적 파일 (이미지, 아이콘 등) ├── 📂 dist # 빌드 결과물 ├── 📜 index.html # 메인 HTML 파일 ├── 📜 package.json # 프로젝트 설정 및 의존성 └── 📜 vercel.json # Vercel 설정 파일
 
 ### 4.1 개발 일정(WBS)
 
