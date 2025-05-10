@@ -71,7 +71,7 @@
 
 ## 3. 프로젝트 구조
 
-````plaintext
+```plaintext
 📦 open-market-service
 ┣ 📂 src                     # 소스 코드 디렉토리
 ┃ ┣ 📂 components            # UI 컴포넌트 (Header, Footer, Swiper 등)
@@ -100,6 +100,7 @@
 ┣ 📜 [index.html](http://_vscodecontentref_/0)              # 메인 HTML 파일
 ┣ 📜 [package.json](http://_vscodecontentref_/1)            # 프로젝트 설정 및 의존성
 ┗ 📜 [vercel.json](http://_vscodecontentref_/2)             # Vercel 설정 파일
+```
 
 ## 4. 설치 및 실행 방법
 
@@ -110,6 +111,8 @@
    ```bash
    git clone <repository-url>
    cd open-market-service
+   ```
+
 ````
 
 2. **의존설 설치 및 로컬 서버 실행**
@@ -139,3 +142,4 @@
   - Copilot을 활용하여 반복적인 작업을 자동화하고, 코드 작성 속도를 높일 수 있었습니다.
   - 하지만 Copilot의 제안을 무조건 수용하기보다는, 제안된 코드를 검토하고 수정하는 과정을 통해 더 나은 코드를 작성하려고 노력했습니다.
   - Copilot을 어떻게 더 잘 활용할 수 있을지 고민했습니다.
+````
