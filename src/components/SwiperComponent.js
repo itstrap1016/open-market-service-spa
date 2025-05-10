@@ -1,5 +1,5 @@
 import Swiper from "swiper";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -38,7 +38,7 @@ export const setSwiper = () => {
     direction: "horizontal",
     loop: true,
     autoplay: {
-      delay: 3000, // 3초마다 슬라이드
+      delay: 5000, // 3초마다 슬라이드
       disableOnInteraction: false, // 사용자 상호작용 후에도 자동 슬라이드 유지
     },
     pagination: {
@@ -49,7 +49,7 @@ export const setSwiper = () => {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
     },
-    modules: [Navigation, Pagination],
+    modules: [Navigation, Pagination, Autoplay],
   });
 
   return swiper;
