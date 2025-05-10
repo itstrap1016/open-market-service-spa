@@ -77,15 +77,26 @@
 📦 open-market-service
 ┣ 📂 src                     # 소스 코드 디렉토리
 ┃ ┣ 📂 components            # UI 컴포넌트 (Header, Footer, Swiper 등)
-┃ ┃ ┣ 📜 Header.js           # 헤더 컴포넌트
+┃ ┃ ┣ 📜 ErrorMessage.js     # 에러 메세지 컴포넌트
 ┃ ┃ ┣ 📜 Footer.js           # 푸터 컴포넌트
-┃ ┃ ┗ 📜 SwiperComponent.js  # 슬라이더 컴포넌트
+┃ ┃ ┣ 📜 FormLogo.js         # 회원가입, 로그인 폼 로고 컴포넌트
+┃ ┃ ┣ 📜 Header.js           # 헤더, 네비게이션 컴포넌트
+┃ ┃ ┣ 📜 LoginForm.js        # 로그인 폼 컴포넌트
+┃ ┃ ┣ 📜 Modal.js            # 모달 컴포넌트
+┃ ┃ ┣ 📜 Product.js          # 제품 상세 페이지 메인 컨텐츠 컴포넌트
+┃ ┃ ┣ 📜 Products.js         # 메인 페이지 제품 리스트 컴포넌트
+┃ ┃ ┣ 📜 SignUpForm.js       # 회원가입 폼 컴포넌트
+┃ ┃ ┣ 📜 SuccessMessage.js   # 폼 인증 성공 메세지 컴포넌트
+┃ ┃ ┣ 📜 SwiperComponent.js  # 메인 페이지 스와이퍼 컴포넌트
+┃ ┃ ┗ 📜 TabBtns.js          # 회원가입, 로그인 탭 버튼 컴포넌트
 ┃ ┣ 📂 pages                 # 각 페이지 (Home, Login, SignUp 등)
 ┃ ┃ ┣ 📜 Home.js             # 메인 페이지
 ┃ ┃ ┣ 📜 Login.js            # 로그인 페이지
 ┃ ┃ ┣ 📜 SignUp.js           # 회원가입 페이지
 ┃ ┃ ┗ 📜 ProductDetail.js    # 상품 상세 페이지
 ┃ ┣ 📂 services              # 비즈니스 로직 (회원가입, 로그인 등)
+┃ ┃ ┣ 📜 counter.js          # 상품 상세 페이지 물품 증감 로직
+┃ ┃ ┣ 📜 loginProcess.js     # 로그인 관련 로직
 ┃ ┃ ┣ 📜 signupProcess.js    # 회원가입 관련 로직
 ┃ ┃ ┗ 📜 auth.js             # 인증 관련 로직
 ┃ ┣ 📂 api                   # API 호출 관련 코드
