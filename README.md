@@ -69,35 +69,37 @@
 
 ## 3. 프로젝트 구조
 
-- 해당 프로젝트에서 폴더 트리 잘 다듬어 사용하세요. 필요하다면 주석을 달아주세요.
-  📦 open-market-service
-  ┣ 📂 src # 소스 코드 디렉토리
-  ┃ ┣ 📂 components # UI 컴포넌트 (Header, Footer, Swiper 등)
-  ┃ ┃ ┣ 📜 Header.js # 헤더 컴포넌트
-  ┃ ┃ ┣ 📜 Footer.js # 푸터 컴포넌트
-  ┃ ┃ ┗ 📜 SwiperComponent.js # 슬라이더 컴포넌트
-  ┃ ┣ 📂 pages # 각 페이지 (Home, Login, SignUp 등)
-  ┃ ┃ ┣ 📜 Home.js # 메인 페이지
-  ┃ ┃ ┣ 📜 Login.js # 로그인 페이지
-  ┃ ┃ ┣ 📜 SignUp.js # 회원가입 페이지
-  ┃ ┃ ┗ 📜 ProductDetail.js # 상품 상세 페이지
-  ┃ ┣ 📂 services # 비즈니스 로직 (회원가입, 로그인 등)
-  ┃ ┃ ┣ 📜 signupProcess.js # 회원가입 관련 로직
-  ┃ ┃ ┗ 📜 auth.js # 인증 관련 로직
-  ┃ ┣ 📂 api # API 호출 관련 코드
-  ┃ ┃ ┗ 📜 signupApi.js # 회원가입 API 호출
-  ┃ ┣ 📂 utils # 유틸리티 함수
-  ┃ ┃ ┗ 📜 utils.js # 공통 유틸리티 함수
-  ┃ ┣ 📂 css # 스타일 파일
-  ┃ ┃ ┗ 📜 style.css # 메인 스타일 파일
-  ┃ ┗ 📜 app.js # 라우팅 및 초기화 로직
-  ┣ 📂 public # 정적 파일 (이미지, 아이콘 등)
-  ┃ ┗ 📜 favicon.ico # 파비콘 파일
-  ┣ 📂 dist # 빌드 결과물
-  ┃ ┗ 📜 (빌드된 정적 파일)
-  ┣ 📜 index.html # 메인 HTML 파일
-  ┣ 📜 package.json # 프로젝트 설정 및 의존성
-  ┗ 📜 vercel.json # Vercel 설정 파일
+## 3. 프로젝트 구조
+
+````plaintext
+📦 open-market-service
+┣ 📂 src                     # 소스 코드 디렉토리
+┃ ┣ 📂 components            # UI 컴포넌트 (Header, Footer, Swiper 등)
+┃ ┃ ┣ 📜 Header.js           # 헤더 컴포넌트
+┃ ┃ ┣ 📜 Footer.js           # 푸터 컴포넌트
+┃ ┃ ┗ 📜 SwiperComponent.js  # 슬라이더 컴포넌트
+┃ ┣ 📂 pages                 # 각 페이지 (Home, Login, SignUp 등)
+┃ ┃ ┣ 📜 Home.js             # 메인 페이지
+┃ ┃ ┣ 📜 Login.js            # 로그인 페이지
+┃ ┃ ┣ 📜 SignUp.js           # 회원가입 페이지
+┃ ┃ ┗ 📜 ProductDetail.js    # 상품 상세 페이지
+┃ ┣ 📂 services              # 비즈니스 로직 (회원가입, 로그인 등)
+┃ ┃ ┣ 📜 signupProcess.js    # 회원가입 관련 로직
+┃ ┃ ┗ 📜 auth.js             # 인증 관련 로직
+┃ ┣ 📂 api                   # API 호출 관련 코드
+┃ ┃ ┗ 📜 signupApi.js        # 회원가입 API 호출
+┃ ┣ 📂 utils                 # 유틸리티 함수
+┃ ┃ ┗ 📜 utils.js            # 공통 유틸리티 함수
+┃ ┣ 📂 css                   # 스타일 파일
+┃ ┃ ┗ 📜 style.css           # 메인 스타일 파일
+┃ ┗ 📜 app.js                # 라우팅 및 초기화 로직
+┣ 📂 public                  # 정적 파일 (이미지, 아이콘 등)
+┃ ┗ 📜 favicon.ico           # 파비콘 파일
+┣ 📂 dist                    # 빌드 결과물
+┃ ┗ 📜 (빌드된 정적 파일)
+┣ 📜 [index.html](http://_vscodecontentref_/0)              # 메인 HTML 파일
+┣ 📜 [package.json](http://_vscodecontentref_/1)            # 프로젝트 설정 및 의존성
+┗ 📜 [vercel.json](http://_vscodecontentref_/2)             # Vercel 설정 파일
 
 ## 4. 설치 및 실행 방법
 
@@ -108,7 +110,7 @@
    ```bash
    git clone <repository-url>
    cd open-market-service
-   ```
+````
 
 2. **의존설 설치 및 로컬 서버 실행**
 
