@@ -7,6 +7,8 @@ const updateDOM = (html) => {
   const app = document.getElementById("app");
   app.innerHTML = "";
   app.insertAdjacentHTML("afterbegin", html);
+
+  window.scrollTo(0, 0);
 };
 
 // 로그인 경로 처리 함수
