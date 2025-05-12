@@ -10,9 +10,8 @@
   margin-bottom: 140px;
 }
 .product-detail .img-info .img-wrapper {
-  width: 600px;
-  height: 600px;
-  background-color: #f2f2f2;
+  max-width: 600px;
+  width: 100%;
 }
 .product-detail .img-info .img-wrapper img {
   width: 100%;

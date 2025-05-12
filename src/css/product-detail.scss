@@ -11,9 +11,8 @@
     gap: 50px;
     margin-bottom: 140px;
     .img-wrapper {
-      width: 600px;
-      height: 600px;
-      background-color: $white-gray;
+      max-width: 600px;
+      width: 100%;
 
       img {
         width: 100%;
