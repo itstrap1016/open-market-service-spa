@@ -24,7 +24,19 @@ const getBuyerButtons = () => `
 `;
 
 const getSellerButtons = () => `
-  ${getBuyerButtons()}
+  <div class="my-page-btn-wrapper">
+    <button class="my-page-btn">
+      <span class="img"></span>
+      <span class="txt">마이페이지</span>
+    </button>
+    <div class="list-wrapper">
+      <div class="triangle"></div>
+      <ul>
+        <li><a href="#">마이페이지</a></li>
+        <li><button class="logout-btn">로그아웃</button></li>
+      </ul>
+    </div>
+  </div>
   <a href="#" class="primary-btn seller-center-btn">
     <span class="img"></span>
     <span class="txt">판매자 센터</span>

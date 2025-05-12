@@ -166,6 +166,9 @@
   align-items: center;
   border-radius: 5px;
 }
+.product-detail .img-info .info .btns .shopping-cart-btn:disabled {
+  background-color: #c4c4c4;
+}
 .product-detail .btns-list {
   display: flex;
   margin-bottom: 360px;
