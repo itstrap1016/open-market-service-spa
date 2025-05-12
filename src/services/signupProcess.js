@@ -1,90 +1,26 @@
-import {
-  checkId,
-  checkBusinessNumber,
-  buyerSignup,
-  sellerSignup,
-} from "../api/signupApi";
+import { buyerSignup, sellerSignup } from "../api/signupApi";
 import { getElement } from "../utils/utils";
 import { USER_TYPES, ROUTES } from "../constants/constants";
+import { getInputDoms, getButtonDoms, getMessageDoms } from "./getSignupDoms";
+import {
+  validateField,
+  validateId,
+  validatePassword,
+  validatePasswordMatch,
+  validateBusinessNumber,
+} from "./signupValidate";
 
-const ERROR_MESSAGES = {
+export const ERROR_MESSAGES = {
   REQUIRED: "필수 정보입니다",
   INVALID_PASSWORD:
     "비밀번호는 8자 이상, 영문 대소문자, 숫자, 특수문자를 포함해야 합니다.",
   PASSWORD_CHECK_ERROR: "비밀번호가 일치하지 않습니다.",
 };
 
-const checkStatus = {
+export const checkStatus = {
   isIdChecked: false, // 아이디 중복확인 상태
   isPasswordConfirmed: false, // 비밀번호 재확인 상태
   isBusinessChecked: true,
-};
-
-const getInputDoms = () => {
-  return {
-    $idInput: getElement("#user-id"),
-    $passwordInput: getElement("#password"),
-    $passwordCheckInput: getElement("#password-check"),
-    $nameInput: getElement("#name"),
-    $businessNumberInput: getElement("#business-number"),
-    $storeNameInput: getElement("#store-name"),
-    $phoneNumberSelect: getElement("#phone-number-select"),
-    $phoneNumberInput1: getElement(".number-input-01"),
-    $phoneNumberInput2: getElement(".number-input-02"),
-  };
-};
-
-const getButtonDoms = () => {
-  return {
-    $idValidateBtn: getElement(".id-validate-btn"),
-    $businessValidateBtn: getElement(".business-number-validate-btn"),
-    $passwordCheckBtn: getElement(".password-input-set .custom-check-btn"),
-    $passwordReCheckBtn: getElement(
-      ".password-check-input-set .custom-check-btn"
-    ),
-    $termsCheckbox: getElement(".terms-agreement input[type='checkbox']"),
-    $signupBtn: getElement(".signup-btn"),
-  };
-};
-
-const getMessageDoms = () => {
-  return {
-    $idErrorMessage: getElement(".id-input-set .error-message"),
-    $passwordErrorMessage: getElement(".password-input-set .error-message"),
-    $passwordCheckErrorMessage: getElement(
-      ".password-check-input-set .error-message"
-    ),
-    $nameErrorMessage: getElement(".name-input-set .error-message"),
-    $phoneErrorMessage: getElement(".phone-number-set .error-message"),
-    $businessErrorMessage: getElement(".business-number-set .error-message"),
-    $storeErrorMessage: getElement(".store-name-set .error-message"),
-    $successMessage: getElement(".id-input-set .success-message"),
-    $businessSuccessMessage: getElement(
-      ".business-number-set .success-message"
-    ),
-  };
-};
-
-// 에러 메시지 처리 함수
-const showError = ($errorElement, message, $successElement = null) => {
-  $errorElement.classList.remove("off");
-  $errorElement.classList.add("on");
-  $errorElement.textContent = message;
-
-  if ($successElement) {
-    $successElement.classList.remove("on");
-  }
-};
-
-// 에러 메시지 숨김 함수
-const hideError = ($errorElement, $successElement = null) => {
-  $errorElement.classList.remove("on");
-  $errorElement.classList.add("off");
-  $errorElement.textContent = "";
-
-  if ($successElement) {
-    $successElement.classList.add("on");
-  }
 };
 
 const updateSignupBtnState = () => {
@@ -151,101 +87,6 @@ const setSignupBtnState = () => {
   });
 };
 
-const validateField = ($input, $errorElement, errorMessage) => {
-  const value = $input.value.trim();
-  if (!value) {
-    showError($errorElement, errorMessage);
-    return false;
-  } else {
-    hideError($errorElement);
-    return true;
-  }
-};
-
-const validateId = async ($idInput, $idErrorMessage, $successMessage) => {
-  const idValue = $idInput.value.trim();
-  const data = await checkId(idValue);
-
-  if (data && data.error) {
-    showError($idErrorMessage, data.error, $successMessage);
-    checkStatus.isIdChecked = false;
-  } else if (data && data.message) {
-    hideError($idErrorMessage, $successMessage);
-    checkStatus.isIdChecked = true;
-  }
-};
-
-const validatePassword = (
-  $passwordInput,
-  $passwordCheckBtn,
-  $passwordErrorMessage
-) => {
-  const passwordValue = $passwordInput.value.trim();
-  const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-  if (passwordRegex.test(passwordValue)) {
-    $passwordCheckBtn.classList.add("on");
-    hideError($passwordErrorMessage);
-    return true;
-  } else {
-    $passwordCheckBtn.classList.remove("on");
-    showError($passwordErrorMessage, ERROR_MESSAGES.INVALID_PASSWORD);
-    return false;
-  }
-};
-
-const validatePasswordMatch = (
-  $passwordInput,
-  $passwordCheckInput,
-  $passwordErrorMessage,
-  $passwordCheckErrorMessage,
-  $passwordReCheckBtn
-) => {
-  const passwordValue = $passwordInput.value.trim();
-  const passwordCheckValue = $passwordCheckInput.value.trim();
-
-  if (!passwordValue) {
-    showError($passwordErrorMessage, ERROR_MESSAGES.REQUIRED);
-    showError($passwordCheckErrorMessage, ERROR_MESSAGES.PASSWORD_CHECK_ERROR);
-    checkStatus.isPasswordConfirmed = false;
-    return false;
-  }
-
-  if (passwordCheckValue !== passwordValue) {
-    $passwordReCheckBtn.classList.remove("on");
-    showError($passwordCheckErrorMessage, ERROR_MESSAGES.PASSWORD_CHECK_ERROR);
-    checkStatus.isPasswordConfirmed = false;
-    return false;
-  }
-
-  if (passwordCheckValue === passwordValue && passwordValue) {
-    $passwordReCheckBtn.classList.add("on");
-    hideError($passwordCheckErrorMessage);
-    checkStatus.isPasswordConfirmed = true;
-    return true;
-  }
-};
-
-const validateBusinessNumber = async (
-  $businessNumberInput,
-  $businessErrorMessage,
-  $businessSuccessMessage
-) => {
-  const value = $businessNumberInput.value.trim();
-  const data = await checkBusinessNumber(value);
-
-  if (data && data.message) {
-    hideError($businessErrorMessage, $businessSuccessMessage);
-    checkStatus.isBusinessChecked = true;
-    return true;
-  } else if (data && data.error) {
-    showError($businessErrorMessage, data.error, $businessSuccessMessage);
-    checkStatus.isBusinessChecked = false;
-    return false;
-  }
-};
-
 export const validateSignup = () => {
   const {
     $idInput,
@@ -277,110 +118,137 @@ export const validateSignup = () => {
 
   setSignupBtnState();
 
-  $idInput.addEventListener("blur", () => {
-    validateField($idInput, $idErrorMessage, ERROR_MESSAGES.REQUIRED);
-  });
+  const $signupForm = getElement(".signup-form");
 
-  $idValidateBtn.addEventListener("click", async () => {
-    await validateId($idInput, $idErrorMessage, $successMessage);
-  });
+  $signupForm.addEventListener(
+    "blur",
+    (event) => {
+      const target = event.target;
 
-  $passwordInput.addEventListener("click", () => {
-    validateField($idInput, $idErrorMessage, ERROR_MESSAGES.REQUIRED);
-  });
+      // ID 입력 필드 검증
+      if (target === $idInput) {
+        validateField($idInput, $idErrorMessage, ERROR_MESSAGES.REQUIRED);
+      }
+      // 비밀번호 입력 필드 검증
+      if (target === $passwordInput) {
+        validatePassword(
+          $passwordInput,
+          $passwordCheckBtn,
+          $passwordErrorMessage
+        );
+      }
+      // 비밀번호 확인 필드 검증
+      if (target === $passwordCheckInput) {
+        validatePasswordMatch(
+          $passwordInput,
+          $passwordCheckInput,
+          $passwordErrorMessage,
+          $passwordCheckErrorMessage,
+          $passwordReCheckBtn
+        );
+      }
+      // 이름 입력 필드 검증
+      if (target === $nameInput) {
+        validateField($nameInput, $nameErrorMessage, ERROR_MESSAGES.REQUIRED);
+      }
+      // 전화번호 입력 필드 검증
+      if (target === $phoneNumberInput1 || target === $phoneNumberInput2) {
+        validateField(
+          $phoneNumberInput1,
+          $phoneErrorMessage,
+          ERROR_MESSAGES.REQUIRED
+        );
+        validateField(
+          $phoneNumberInput2,
+          $phoneErrorMessage,
+          ERROR_MESSAGES.REQUIRED
+        );
+      }
+      // 사업자 번호 입력 필드 검증
+      if (target === $businessNumberInput) {
+        validateField(
+          $businessNumberInput,
+          $businessErrorMessage,
+          ERROR_MESSAGES.REQUIRED
+        );
+      }
+      // 상점 이름 입력 필드 검증
+      if (target === $storeNameInput) {
+        validateField(
+          $storeNameInput,
+          $storeErrorMessage,
+          ERROR_MESSAGES.REQUIRED
+        );
+      }
+    },
+    true
+  );
 
-  $passwordInput.addEventListener("blur", () => {
-    validatePassword($passwordInput, $passwordCheckBtn, $passwordErrorMessage);
-  });
+  $signupForm.addEventListener("click", async (event) => {
+    const target = event.target;
 
-  $passwordCheckInput.addEventListener("click", () => {
-    validateField($idInput, $idErrorMessage, ERROR_MESSAGES.REQUIRED);
-    validateField(
-      $passwordInput,
-      $passwordErrorMessage,
-      ERROR_MESSAGES.REQUIRED
-    );
-  });
+    // ID 중복 확인 버튼
+    if (target === $idValidateBtn) {
+      await validateId($idInput, $idErrorMessage, $successMessage);
+    }
 
-  $passwordCheckInput.addEventListener("blur", () => {
-    validatePasswordMatch(
-      $passwordInput,
-      $passwordCheckInput,
-      $passwordErrorMessage,
-      $passwordCheckErrorMessage,
-      $passwordReCheckBtn
-    );
-  });
+    // 비밀번호 입력 필드 클릭
+    if (target === $passwordInput) {
+      validateField($idInput, $idErrorMessage, ERROR_MESSAGES.REQUIRED);
+    }
 
-  $nameInput.addEventListener("click", () => {
-    validateField($idInput, $idErrorMessage, ERROR_MESSAGES.REQUIRED);
-    validateField(
-      $passwordInput,
-      $passwordErrorMessage,
-      ERROR_MESSAGES.REQUIRED
-    );
-    validateField(
-      $passwordCheckInput,
-      $passwordCheckErrorMessage,
-      ERROR_MESSAGES.REQUIRED
-    );
-  });
+    // 비밀번호 확인 필드 클릭
+    if (target === $passwordCheckInput) {
+      validateField($idInput, $idErrorMessage, ERROR_MESSAGES.REQUIRED);
+      validateField(
+        $passwordInput,
+        $passwordErrorMessage,
+        ERROR_MESSAGES.REQUIRED
+      );
+    }
 
-  $nameInput.addEventListener("blur", () => {
-    validateField($nameInput, $nameErrorMessage, ERROR_MESSAGES.REQUIRED);
-  });
+    // 이름 입력 필드 클릭
+    if (target === $nameInput) {
+      validateField($idInput, $idErrorMessage, ERROR_MESSAGES.REQUIRED);
+      validateField(
+        $passwordInput,
+        $passwordErrorMessage,
+        ERROR_MESSAGES.REQUIRED
+      );
+      validateField(
+        $passwordCheckInput,
+        $passwordCheckErrorMessage,
+        ERROR_MESSAGES.REQUIRED
+      );
+    }
 
-  $phoneNumberInput1.addEventListener("click", () => {
-    validateField($idInput, $idErrorMessage, ERROR_MESSAGES.REQUIRED);
-    validateField(
-      $passwordInput,
-      $passwordErrorMessage,
-      ERROR_MESSAGES.REQUIRED
-    );
-    validateField(
-      $passwordCheckInput,
-      $passwordCheckErrorMessage,
-      ERROR_MESSAGES.REQUIRED
-    );
-    validateField($nameInput, $nameErrorMessage, ERROR_MESSAGES.REQUIRED);
-  });
+    // 전화번호 입력 필드 클릭
+    if (target === $phoneNumberInput1 || target === $phoneNumberInput2) {
+      validateField($idInput, $idErrorMessage, ERROR_MESSAGES.REQUIRED);
+      validateField(
+        $passwordInput,
+        $passwordErrorMessage,
+        ERROR_MESSAGES.REQUIRED
+      );
+      validateField(
+        $passwordCheckInput,
+        $passwordCheckErrorMessage,
+        ERROR_MESSAGES.REQUIRED
+      );
+      validateField($nameInput, $nameErrorMessage, ERROR_MESSAGES.REQUIRED);
+    }
 
-  $phoneNumberInput1.addEventListener("blur", () => {
-    validateField(
-      $phoneNumberInput1,
-      $phoneErrorMessage,
-      ERROR_MESSAGES.REQUIRED
-    );
-    validateField(
-      $phoneNumberInput2,
-      $phoneErrorMessage,
-      ERROR_MESSAGES.REQUIRED
-    );
-  });
-
-  $phoneNumberInput2.addEventListener("blur", () => {
-    validateField(
-      $phoneNumberInput1,
-      $phoneErrorMessage,
-      ERROR_MESSAGES.REQUIRED
-    );
-    validateField(
-      $phoneNumberInput2,
-      $phoneErrorMessage,
-      ERROR_MESSAGES.REQUIRED
-    );
-  });
-
-  if ($businessNumberInput && $storeNameInput) {
-    $businessValidateBtn.addEventListener("click", async () => {
+    // 사업자 번호 확인 버튼
+    if (target === $businessValidateBtn) {
       await validateBusinessNumber(
         $businessNumberInput,
         $businessErrorMessage,
         $businessSuccessMessage
       );
-    });
+    }
 
-    $businessNumberInput.addEventListener("click", () => {
+    // 사업자 번호 입력 필드 클릭
+    if (target === $businessNumberInput) {
       validateField($idInput, $idErrorMessage, ERROR_MESSAGES.REQUIRED);
       validateField(
         $passwordInput,
@@ -403,17 +271,10 @@ export const validateSignup = () => {
         $phoneErrorMessage,
         ERROR_MESSAGES.REQUIRED
       );
-    });
+    }
 
-    $businessNumberInput.addEventListener("blur", () => {
-      validateField(
-        $businessNumberInput,
-        $businessErrorMessage,
-        ERROR_MESSAGES.REQUIRED
-      );
-    });
-
-    $storeNameInput.addEventListener("click", () => {
+    // 상점 이름 입력 필드 클릭
+    if (target === $storeNameInput) {
       validateField($idInput, $idErrorMessage, ERROR_MESSAGES.REQUIRED);
       validateField(
         $passwordInput,
@@ -441,16 +302,8 @@ export const validateSignup = () => {
         $businessErrorMessage,
         ERROR_MESSAGES.REQUIRED
       );
-    });
-
-    $storeNameInput.addEventListener("blur", () => {
-      validateField(
-        $storeNameInput,
-        $storeErrorMessage,
-        ERROR_MESSAGES.REQUIRED
-      );
-    });
-  }
+    }
+  });
 };
 
 export const handleSignup = async () => {
