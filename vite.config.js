@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import copy from "rollup-plugin-copy";
 
 export default defineConfig({
   root: ".", // 프로젝트 루트 디렉토리
@@ -6,6 +7,14 @@ export default defineConfig({
     outDir: "dist", // 빌드 결과물 디렉토리
     rollupOptions: {
       input: "./index.html", // 진입점 파일
+      plugins: [
+        copy({
+          targets: [
+            { src: "vercel.json", dest: "dist" }, // vercel.json을 dist로 복사
+          ],
+          hook: "writeBundle", // 빌드 완료 후 복사
+        }),
+      ],
     },
   },
   server: {
